@@ -1,0 +1,32 @@
+# Tasks: Michigan Workforce Intelligence Foundation
+
+- [x] **T001 [FR-001,ER-005]** Create official source registry with access/credential/methodology metadata.
+- [x] **T002 [FR-002,FR-003]** Implement content-addressed raw artifact store and artifact records.
+- [x] **T003 [FR-004,ER-001,ER-002,ER-006]** Implement versioned observations and claims with supersession.
+- [x] **T004 [FR-005]** Implement typed evidence relationships.
+- [x] **T005 [FR-006,ER-006]** Implement non-destructive challenges.
+- [x] **T006 [FR-007,FR-008]** Implement canonical SHA-256 event ledger and verification.
+- [x] **T007 [FR-008]** Add SQLite immutability triggers for evidence and ledger rows.
+- [x] **T008 [FR-009]** Implement BLS Public Data API v2 connector and normalizer.
+- [x] **T009 [FR-010]** Implement Census QWI connector with explicit indicator units and dimensions.
+- [x] **T010 [FR-011]** Implement official artifact/file ingestion adapter.
+- [x] **T011 [FR-012]** Preserve code-system/version and geography/time metadata in observations.
+- [x] **T012 [FR-013,ER-004]** Implement deterministic training-pipeline gap and market-tightness analytics.
+- [x] **T013 [FR-014]** Implement MCP service facade and optional MCPServer v2 transport.
+- [x] **T014 [FR-015,ER-007]** Implement evidence-linked report-context builder.
+- [x] **T015 [ER-003]** Implement decomposed evidence-quality scoring.
+- [x] **T016 [SC-001..SC-006]** Implement offline unit and governance tests.
+- [x] **T017** Add local CI script with RTK-aware command execution.
+- [x] **T018** Add Spec Kit constitution/spec/plan/tasks/checklist/convergence artifacts.
+- [x] **T019 [FR-011,FR-021]** Add schema-detecting MCDA 2024-2034 occupational-projection and 2025 OEWS XLSX parsers with fail-closed fixtures.
+- [x] **T020 [FR-011,FR-020]** Add O*NET 31.0 rating/software-skill ingestion while keeping database release separate from O*NET-SOC 2019 taxonomy.
+- [x] **T021 [FR-011,FR-012,FR-017,FR-019]** Add IPEDS completions/enrollment/directory loader and artifact-backed CIP 2020 to SOC 2018 crosswalk ingestion.
+- [ ] **T022** Add Census LODES/PSEO bulk ingestion and Michigan geographic hierarchy.
+- [ ] **T023** Add signed daily ledger checkpoint / Merkle root support.
+- [x] **T024 [FR-022,ER-004,ER-007]** Add deterministic policy-scenario model with explicit causal assumptions, counterfactual additionality, and low/base/high sensitivity analysis.
+- [x] **T025 [FR-016,ER-007]** Audit ledger coverage so unledgered evidence rows fail report generation.
+- [x] **T026 [FR-017,ER-006]** Add immutable, versioned, source-artifact-backed taxonomy mappings.
+- [x] **T027 [FR-018,ER-007]** Persist derived metrics with formula/version, explicit input references, assumptions, caveats, and supersession.
+- [x] **T028 [SC-007]** Enforce >=90% package coverage in local CI when pytest-cov is installed; strict mode requires all governance/static-analysis tools.
+- [ ] **T029 [FR-012]** Ingest the official O*NET-SOC 2019 to SOC 2018 crosswalk rather than relying on code-shape assumptions.
+- [ ] **T030 [FR-021]** Validate MCDA XLSX parsers against the exact official 2024-2034 and 2025 release binaries and pin observed schemas.

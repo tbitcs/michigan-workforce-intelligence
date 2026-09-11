@@ -1,0 +1,2 @@
+# Deliberately minimal. Custom filters can change what agents see and therefore
+# require explicit trust. Add project filters only with tests and review.
