@@ -9,7 +9,7 @@ from mijobs.config import Settings, load_source_catalog
 from mijobs.db import initialize_database, make_engine, session_factory
 from mijobs.ledger import audit_evidence_coverage, verify_ledger
 
-app = typer.Typer(no_args_is_help=True, help="Michigan Jobs Intelligence administration CLI")
+app = typer.Typer(no_args_is_help=True, help="Michigan Workforce Intelligence administration CLI")
 
 
 @app.command("init-db")

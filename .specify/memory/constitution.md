@@ -1,4 +1,4 @@
-# Michigan Jobs Intelligence Constitution
+# Michigan Workforce Intelligence Constitution
 
 **Version:** 1.0.0
 **Ratified:** 2026-09-11

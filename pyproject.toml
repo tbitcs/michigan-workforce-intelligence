@@ -3,7 +3,7 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "michigan-jobs-intelligence"
+name = "michigan-workforce-intelligence"
 version = "0.1.0"
 description = "Epistemic, hash-chained workforce intelligence platform for Michigan"
 requires-python = ">=3.11"

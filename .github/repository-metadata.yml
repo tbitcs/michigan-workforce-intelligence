@@ -1,0 +1,25 @@
+repository:
+  owner: tbitcs
+  name: michigan-workforce-intelligence
+  visibility: private
+  description: >-
+    Evidence-centered Michigan workforce intelligence platform for labor, education,
+    skills, job-gap, and policy analysis with hash-chained provenance and MCP access.
+  topics:
+    - michigan
+    - workforce
+    - labor-market
+    - workforce-development
+    - economic-development
+    - labor-data
+    - skills-gap
+    - jobs
+    - public-policy
+    - mcp-server
+    - epistemic-engineering
+    - data-provenance
+    - hash-chain
+    - government-data
+    - education-data
+    - employment
+    - python

@@ -1,4 +1,4 @@
-# Michigan Jobs Intelligence
+# Michigan Workforce Intelligence
 
 Private, Michigan-first workforce intelligence infrastructure for building auditable analyses of unemployment, employment, occupational demand, job and skill gaps, education pipelines, workforce flows, wages, and policy scenarios.
 

@@ -1,4 +1,4 @@
-# Michigan Jobs Intelligence - Codex Operating Contract
+# Michigan Workforce Intelligence - Codex Operating Contract
 
 This repository is governed by Spec Kit and RTK. Intent, evidence integrity, and tests outrank implementation convenience.
 

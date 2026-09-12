@@ -21,7 +21,7 @@ def build_server() -> Any:
     initialize_database(engine)
     factory = session_factory(engine)
     catalog = load_source_catalog()
-    mcp = MCPServer("Michigan Jobs Intelligence")
+    mcp = MCPServer("Michigan Workforce Intelligence")
 
     def call(fn: Callable[[MCPService], T]) -> T:
         with factory() as session:
