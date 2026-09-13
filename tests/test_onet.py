@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import httpx
 import pytest
@@ -59,7 +59,7 @@ def test_onet_suppression_and_validation() -> None:
     artifact = FetchedArtifact(
         source_id="us_onet",
         locator="x",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=json.dumps(rows).encode(),
         media_type="application/json",
         dataset_version="31.0",
@@ -72,7 +72,7 @@ def test_onet_suppression_and_validation() -> None:
     missing_release = FetchedArtifact(
         source_id="us_onet",
         locator="x",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=b"[]",
         media_type="application/json",
         metadata={"dataset": "essential_skills"},
@@ -110,7 +110,7 @@ def test_onet_software_skills_are_categorical_not_fake_ratings() -> None:
     artifact = FetchedArtifact(
         source_id="us_onet",
         locator="x",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=json.dumps(rows).encode(),
         media_type="application/json",
         dataset_version="31.0",

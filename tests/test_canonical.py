@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 
 import pytest
@@ -7,8 +7,8 @@ from mijobs.canonical import CanonicalizationError, canonical_json, canonical_sh
 
 
 def test_canonical_json_is_order_independent() -> None:
-    left = {"b": 2, "a": [Decimal("1.00"), datetime(2026, 9, 11, tzinfo=timezone.utc)]}
-    right = {"a": [Decimal("1.0"), datetime(2026, 9, 11, tzinfo=timezone.utc)], "b": 2}
+    left = {"b": 2, "a": [Decimal("1.00"), datetime(2026, 9, 11, tzinfo=UTC)]}
+    right = {"a": [Decimal("1.0"), datetime(2026, 9, 11, tzinfo=UTC)], "b": 2}
     assert canonical_json(left) == canonical_json(right)
     assert canonical_sha256(left) == canonical_sha256(right)
 

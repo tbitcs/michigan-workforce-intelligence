@@ -20,7 +20,7 @@ class Settings:
     onet_password: str | None
 
     @classmethod
-    def from_env(cls) -> "Settings":
+    def from_env(cls) -> Settings:
         return cls(
             database_url=os.getenv("MIJOBS_DATABASE_URL", "sqlite:///./mijobs.db"),
             artifact_root=Path(os.getenv("MIJOBS_ARTIFACT_ROOT", "./artifacts/raw")),

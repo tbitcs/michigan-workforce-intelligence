@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from sqlalchemy import text
@@ -24,7 +24,7 @@ def test_ledger_append_and_verify(db_session: Session) -> None:
         entity_id="a",
         payload={"value": 1},
         actor="pytest",
-        occurred_at=datetime(2026, 9, 11, 12, 0, tzinfo=timezone.utc),
+        occurred_at=datetime(2026, 9, 11, 12, 0, tzinfo=UTC),
     )
     second = append_event(
         db_session,
@@ -33,7 +33,7 @@ def test_ledger_append_and_verify(db_session: Session) -> None:
         entity_id="b",
         payload={"value": 2},
         actor="pytest",
-        occurred_at=datetime(2026, 9, 11, 12, 1, tzinfo=timezone.utc),
+        occurred_at=datetime(2026, 9, 11, 12, 1, tzinfo=UTC),
     )
     assert second.previous_hash == first.event_hash
     result = verify_ledger(db_session)
@@ -68,6 +68,7 @@ def test_database_blocks_ledger_update_and_delete(db_session: Session) -> None:
 def test_verifier_detects_payload_tamper_in_imported_database(tmp_path) -> None:
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker
+
     from mijobs.models import Base
 
     engine = create_engine(f"sqlite:///{tmp_path / 'unguarded.db'}")
@@ -92,7 +93,8 @@ def test_verifier_detects_payload_tamper_in_imported_database(tmp_path) -> None:
 
 
 def test_coverage_audit_detects_unledgered_evidence(db_session: Session) -> None:
-    from datetime import datetime, timezone
+    from datetime import datetime
+
     from mijobs.ledger import audit_evidence_coverage
     from mijobs.models import Claim
 
@@ -107,7 +109,7 @@ def test_coverage_audit_detects_unledgered_evidence(db_session: Session) -> None
             scope_json={},
             quality_json={},
             supersedes_claim_id=None,
-            created_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
         )
     )
     db_session.flush()

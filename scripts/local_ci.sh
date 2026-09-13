@@ -27,17 +27,18 @@ echo "[1/7] governance"
 python scripts/validate_governance.py
 
 echo "[2/7] compile"
-python -m compileall -q src tests scripts
+python -m compileall -q src tests scripts deploy
 
 echo "[3/7] unit tests + coverage"
 if python -c 'import pytest_cov' >/dev/null 2>&1; then
-  compact pytest -q --cov=mijobs --cov-report=term-missing --cov-fail-under=90
+  # Invoke pytest directly: RTK 0.49 can misreport double-quiet pytest output.
+  python -m pytest -q --cov=mijobs --cov-report=term-missing --cov-fail-under=90
 elif [ "${STRICT_TOOLS:-0}" = "1" ]; then
   echo "pytest-cov is required in STRICT_TOOLS mode" >&2
   exit 1
 else
   echo "pytest-cov not installed; running tests without coverage enforcement"
-  compact pytest -q
+  python -m pytest -q
 fi
 
 echo "[4/7] source registry"
@@ -48,14 +49,14 @@ python scripts/verify_spec_traceability.py
 
 echo "[6/7] lint"
 if command -v ruff >/dev/null 2>&1; then
-  compact ruff check src tests scripts
+  compact ruff check src tests scripts deploy
 else
   echo "ruff not installed; skipped (install .[dev] or set STRICT_TOOLS=1 to enforce)"
 fi
 
 echo "[7/7] typecheck"
 if command -v mypy >/dev/null 2>&1; then
-  mypy src/mijobs
+  mypy src/mijobs deploy
 else
   echo "mypy not installed; skipped (install .[dev] or set STRICT_TOOLS=1 to enforce)"
 fi

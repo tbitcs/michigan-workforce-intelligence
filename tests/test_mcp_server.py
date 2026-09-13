@@ -3,8 +3,8 @@ from __future__ import annotations
 import inspect
 import sys
 import types
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 import pytest
 
@@ -12,14 +12,17 @@ from mijobs import mcp_server
 
 
 class FakeMCPServer:
-    def __init__(self, name: str):
+    def __init__(self, name: str, *, instructions: str = ""):
+        self.instructions = instructions
+        self.annotations = {}
         self.name = name
         self.tools: dict[str, Callable] = {}
         self.ran = False
 
-    def tool(self):
+    def tool(self, *, annotations=None):
         def decorator(fn: Callable) -> Callable:
             self.tools[fn.__name__] = fn
+            self.annotations[fn.__name__] = annotations
             return fn
 
         return decorator
@@ -34,6 +37,9 @@ def _install_fake_mcp(monkeypatch: pytest.MonkeyPatch) -> None:
     server_mod.MCPServer = FakeMCPServer
     monkeypatch.setitem(sys.modules, "mcp", mcp_mod)
     monkeypatch.setitem(sys.modules, "mcp.server", server_mod)
+    types_mod = types.ModuleType("mcp.types")
+    types_mod.ToolAnnotations = lambda **kwargs: kwargs
+    monkeypatch.setitem(sys.modules, "mcp.types", types_mod)
 
 
 def test_build_server_exposes_explicit_public_signatures(
@@ -60,6 +66,13 @@ def test_build_server_exposes_explicit_public_signatures(
         "claims_challenge",
     }
     assert set(server.tools) == expected
+    assert "not ingested data" in server.instructions
+    assert "never invent current figures" in server.instructions
+    for name, tool_hints in server.annotations.items():
+        assert tool_hints["read_only_hint"] is (name != "claims_challenge")
+        assert tool_hints["destructive_hint"] is False
+        assert tool_hints["open_world_hint"] is False
+    assert server.annotations["claims_challenge"]["idempotent_hint"] is False
     for fn in server.tools.values():
         assert "service" not in inspect.signature(fn).parameters
     assert server.tools["sources_list"]()["sources"]

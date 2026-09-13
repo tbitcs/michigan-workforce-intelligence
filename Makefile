@@ -1,22 +1,33 @@
-.PHONY: bootstrap test lint typecheck ci verify-ledger init-db
+.PHONY: setup tui up stop logs test lint typecheck ci ci-local bootstrap
 
-bootstrap:
-	bash scripts/bootstrap_governance.sh
+setup:
+	docker compose --profile tools build
 
-test:
-	@if command -v rtk >/dev/null 2>&1; then rtk pytest -q; else pytest -q; fi
+tui:
+	docker compose run --rm tui
 
-lint:
-	@if command -v rtk >/dev/null 2>&1; then rtk ruff check src tests scripts; else ruff check src tests scripts; fi
+up:
+	docker compose up -d --wait app
 
-typecheck:
-	mypy src/mijobs
+stop:
+	docker compose stop app
+
+logs:
+	docker compose logs --tail 100 app
 
 ci:
+	docker compose run --build --rm -T ci
+
+ci-local:
 	bash scripts/local_ci.sh
 
-init-db:
-	PYTHONPATH=src python -m mijobs.cli init-db
+test:
+	docker compose run --rm ci python -m pytest -q
 
-verify-ledger:
-	PYTHONPATH=src python -m mijobs.cli verify-ledger
+lint:
+	docker compose run --rm ci ruff check src tests scripts deploy
+
+typecheck:
+	docker compose run --rm ci mypy src/mijobs deploy
+
+bootstrap: setup

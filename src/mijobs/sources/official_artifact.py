@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 import httpx
@@ -61,7 +61,7 @@ class OfficialArtifactConnector(SourceConnector):
         return FetchedArtifact(
             source_id=source_id,
             locator=final_url,
-            retrieved_at=datetime.now(timezone.utc),
+            retrieved_at=datetime.now(UTC),
             content=response.content,
             media_type=media_type,
             dataset_version=dataset_version,

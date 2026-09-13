@@ -61,3 +61,5 @@ Do not commit API keys, restricted student-level data, PII, confidential UI clai
 ## Definition of done
 
 A task is not done until tests cover happy path, boundary conditions, invalid inputs, evidence lineage, and ledger integrity where applicable. Run `make ci` locally before commit. Do not enable cloud CI without an explicit project decision; local CI is the canonical gate for now.
+
+@RTK.md

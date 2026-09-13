@@ -3,9 +3,9 @@ from __future__ import annotations
 import calendar
 import json
 import re
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from decimal import Decimal, InvalidOperation
-from typing import Any
+from typing import ClassVar
 
 import httpx
 
@@ -17,7 +17,7 @@ class CensusConnector(SourceConnector):
     source_id = "us_census_qwi"
     base_url = "https://api.census.gov/data/timeseries/qwi"
     parser_version = "census-qwi/1"
-    ALLOWED_ENDPOINTS = {"sa", "se", "rh"}
+    ALLOWED_ENDPOINTS: ClassVar[set[str]] = {"sa", "se", "rh"}
 
     def __init__(self, api_key: str | None, client: httpx.Client | None = None):
         self.api_key = api_key
@@ -71,7 +71,7 @@ class CensusConnector(SourceConnector):
         return FetchedArtifact(
             source_id=self.source_id,
             locator=f"{url}?query={json.dumps(safe_params, sort_keys=True)}",
-            retrieved_at=datetime.now(timezone.utc),
+            retrieved_at=datetime.now(UTC),
             content=response.content,
             media_type="application/json",
             parser_version=self.parser_version,

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import UTC
+
 from sqlalchemy import text
 from sqlalchemy.exc import DatabaseError
 from sqlalchemy.orm import Session
@@ -41,9 +43,11 @@ def test_report_context_refuses_tampered_ledger_when_database_guards_absent(db_s
 
 
 def test_report_context_refuses_unledgered_claim(db_session: Session) -> None:
-    from datetime import datetime, timezone
-    from mijobs.models import Claim
+    from datetime import datetime
+
     import pytest
+
+    from mijobs.models import Claim
 
     claim = Claim(
         id="unledgered",
@@ -55,7 +59,7 @@ def test_report_context_refuses_unledgered_claim(db_session: Session) -> None:
         scope_json={},
         quality_json={},
         supersedes_claim_id=None,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     db_session.add(claim)
     db_session.flush()

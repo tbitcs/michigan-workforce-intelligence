@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 
 import pytest
@@ -23,7 +23,7 @@ def _artifact(repo: EvidenceRepository):
     return repo.add_source_artifact(
         source_id="us_bls_api",
         source_locator="https://api.bls.gov/example",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content_sha256="a" * 64,
         media_type="application/json",
         byte_size=12,

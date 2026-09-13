@@ -1,0 +1,67 @@
+name: ${COMPOSE_PROJECT_NAME:-michigan-workforce-intelligence}
+
+x-runtime: &runtime
+  image: ${COMPOSE_PROJECT_NAME:-michigan-workforce-intelligence}:local
+  build:
+    context: .
+    target: runtime
+  env_file: .env
+  volumes:
+    - evidence:/data
+  init: true
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  app:
+    <<: *runtime
+    ports:
+      - "127.0.0.1:${MIJOBS_MCP_PORT:-8000}:${MIJOBS_MCP_PORT:-8000}"
+    networks:
+      default:
+        aliases: [workforce-mcp]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-m", "mijobs.healthcheck"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+      start_period: 10s
+
+  cli:
+    <<: *runtime
+    profiles: [tools]
+    entrypoint: [mijobs]
+    command: [--help]
+
+  ci:
+    image: ${COMPOSE_PROJECT_NAME:-michigan-workforce-intelligence}:ci
+    build:
+      context: .
+      target: ci
+    profiles: [tools]
+    init: true
+    environment:
+      STRICT_TOOLS: "1"
+      MIJOBS_DATABASE_URL: sqlite:////tmp/ci.db
+      MIJOBS_ARTIFACT_ROOT: /tmp/artifacts
+
+  tui:
+    image: ${COMPOSE_PROJECT_NAME:-michigan-workforce-intelligence}:manager
+    build:
+      context: .
+      target: manager
+    profiles: [tools]
+    init: true
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/workspace:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  evidence:
+
+networks:
+  default:
+    name: ${MIJOBS_NETWORK_NAME:-michigan-workforce}

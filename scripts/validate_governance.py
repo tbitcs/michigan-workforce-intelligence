@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
 REQUIRED_PATHS = (
     Path("AGENTS.md"),
     Path("RTK.md"),

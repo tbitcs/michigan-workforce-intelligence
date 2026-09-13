@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import io
 import zipfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import httpx
 import pytest
@@ -22,7 +22,7 @@ def _artifact(body: str, *, filename: str = "C2024_A.zip", status: str = "final"
     return FetchedArtifact(
         source_id="us_nces_ipeds",
         locator=f"https://nces.ed.gov/ipeds/datacenter/data/{filename}",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=_zip_csv(filename.replace(".zip", ".csv"), body),
         media_type="application/zip",
         dataset_version="2024",

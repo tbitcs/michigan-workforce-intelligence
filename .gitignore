@@ -16,3 +16,8 @@ build/
 artifacts/raw/*
 !artifacts/raw/.gitkeep
 .DS_Store
+
+# Environment variants and rendered deployment secrets
+.env.*
+!.env.example
+deploy/generated*

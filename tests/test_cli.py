@@ -7,7 +7,6 @@ from typer.testing import CliRunner
 
 from mijobs.cli import app
 
-
 runner = CliRunner()
 
 
@@ -23,7 +22,8 @@ def test_cli_init_and_verify_ledger(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("MIJOBS_DATABASE_URL", url)
     initialized = runner.invoke(app, ["init-db"])
     assert initialized.exit_code == 0
-    assert url in initialized.stdout
+    assert "database initialized" in initialized.stdout
+    assert url not in initialized.stdout
     verified = runner.invoke(app, ["verify-ledger"])
     assert verified.exit_code == 0
     payload = json.loads(verified.stdout)

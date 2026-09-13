@@ -253,13 +253,13 @@ class MCPService:
             other_known_supply=metric("other_known_supply"),
         )
         response = asdict(result)
-        return _jsonable_decimal(response)
+        return _jsonable_dict(response)
 
     def gap_market_tightness(self, online_job_ads: str, available_people: str) -> dict[str, Any]:
         result = market_tightness(
             online_job_ads=Decimal(online_job_ads), available_people=Decimal(available_people)
         )
-        return _jsonable_decimal(asdict(result))
+        return _jsonable_dict(asdict(result))
 
     def policy_training_scenario(self, payload: dict[str, Any]) -> dict[str, Any]:
         """Evaluate caller-supplied low/base/high workforce-policy assumptions."""
@@ -274,7 +274,7 @@ class MCPService:
             base=assumptions_from_mapping(payload["base"]),
             high=assumptions_from_mapping(payload["high"]),
         )
-        return _jsonable_decimal(asdict(result))
+        return _jsonable_dict(asdict(result))
 
     def report_context(self, claim_ids: list[str]) -> dict[str, Any]:
         return ReportContextBuilder(self.session).build(claim_ids)
@@ -336,6 +336,10 @@ class MCPService:
             "supersedes_observation_id": observation.supersedes_observation_id,
             "created_at": observation.created_at.isoformat(),
         }
+
+
+def _jsonable_dict(value: dict[str, Any]) -> dict[str, Any]:
+    return {key: _jsonable_decimal(item) for key, item in value.items()}
 
 
 def _jsonable_decimal(value: Any) -> Any:

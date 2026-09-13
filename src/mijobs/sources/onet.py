@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
-from typing import Any
+from typing import Any, ClassVar
 
 import httpx
 
@@ -18,14 +18,14 @@ class ONetConnector(SourceConnector):
     base_url = "https://www.onetcenter.org/dl_files/database"
     parser_version = "onet-json-ratings/1"
     TAXONOMY_VERSION = "2019"
-    ALLOWED_RATING_DATASETS = {
+    ALLOWED_RATING_DATASETS: ClassVar[set[str]] = {
         "essential_skills",
         "transferable_skills",
         "abilities",
         "knowledge",
         "work_activities",
     }
-    ALLOWED_CATEGORICAL_DATASETS = {"software_skills"}
+    ALLOWED_CATEGORICAL_DATASETS: ClassVar[set[str]] = {"software_skills"}
     ALLOWED_DATASETS = ALLOWED_RATING_DATASETS | ALLOWED_CATEGORICAL_DATASETS
 
     def __init__(self, client: httpx.Client | None = None):
@@ -57,7 +57,7 @@ class ONetConnector(SourceConnector):
         return FetchedArtifact(
             source_id=self.source_id,
             locator=str(response.url),
-            retrieved_at=datetime.now(timezone.utc),
+            retrieved_at=datetime.now(UTC),
             content=response.content,
             media_type="application/json",
             dataset_version=release,

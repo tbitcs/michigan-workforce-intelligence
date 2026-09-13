@@ -31,22 +31,26 @@ def test_session_scope_commits_and_rolls_back(tmp_path: Path) -> None:
     with factory() as session:
         assert session.scalar(select(Claim).where(Claim.id == "1")) is not None
     with pytest.raises(RuntimeError):
-        with session_scope(factory) as session:
-            session.add(
-                Claim(
-                    id="2",
-                    claim_key="k2",
-                    version=1,
-                    text="x",
-                    kind="reported",
-                    status="unresolved",
-                    scope_json={},
-                    quality_json={},
-                    supersedes_claim_id=None,
-                    created_at=__import__("datetime").datetime.now(__import__("datetime").timezone.utc),
-                )
-            )
-            raise RuntimeError("rollback")
+        _rollback(factory)
     with factory() as session:
         assert session.scalar(select(Claim).where(Claim.id == "2")) is None
     engine.dispose()
+
+
+def _rollback(factory):
+    with session_scope(factory) as session:
+        session.add(
+            Claim(
+                id="2",
+                claim_key="k2",
+                version=1,
+                text="x",
+                kind="reported",
+                status="unresolved",
+                scope_json={},
+                quality_json={},
+                supersedes_claim_id=None,
+                created_at=__import__("datetime").datetime.now(__import__("datetime").timezone.utc),
+            )
+        )
+        raise RuntimeError("rollback")

@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from mijobs.config import Settings, SourceCatalog, load_source_catalog
+from mijobs.config import Settings, load_source_catalog
 
 
 def test_default_source_catalog_is_unique_and_official() -> None:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
@@ -69,7 +69,7 @@ def append_event(
     max_sequence = session.scalar(select(func.max(LedgerEvent.sequence))) or 0
     sequence = int(max_sequence) + 1
     previous_hash = last.event_hash if last is not None else GENESIS_HASH
-    timestamp = occurred_at or datetime.now(timezone.utc)
+    timestamp = occurred_at or datetime.now(UTC)
     event_id = str(uuid4())
     canonical_payload = json.loads(canonical_json(payload))
     payload_hash = canonical_sha256(canonical_payload)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 
@@ -19,7 +19,7 @@ def test_ingestor_saves_exact_bytes_and_normalized_observation(
     artifact = FetchedArtifact(
         source_id="mi_mcda_laus",
         locator="https://www.michigan.gov/example.csv",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=b"exact,official,bytes\n",
         media_type="text/csv",
         dataset_version="2026-08",
@@ -55,7 +55,7 @@ def test_reingesting_same_bytes_reuses_content_addressed_file(
     artifact = FetchedArtifact(
         source_id="mi_mcda_laus",
         locator="https://www.michigan.gov/example.csv",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=b"same bytes",
         media_type="text/csv",
     )

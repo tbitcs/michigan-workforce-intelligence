@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -17,7 +17,7 @@ def _artifact(content: bytes) -> FetchedArtifact:
     return FetchedArtifact(
         source_id="us_nces_ipeds",
         locator="https://nces.ed.gov/ipeds/cipcode/Files/CIP2020_SOC2018_Crosswalk.csv",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=content,
         media_type="text/csv",
         dataset_version="CIP2020-SOC2018",

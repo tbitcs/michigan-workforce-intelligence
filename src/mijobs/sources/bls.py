@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import calendar
 import json
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
@@ -65,7 +65,7 @@ class BLSConnector(SourceConnector):
         return FetchedArtifact(
             source_id=self.source_id,
             locator=locator,
-            retrieved_at=datetime.now(timezone.utc),
+            retrieved_at=datetime.now(UTC),
             content=response.content,
             media_type="application/json",
             parser_version=self.parser_version,

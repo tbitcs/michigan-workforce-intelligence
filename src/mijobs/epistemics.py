@@ -6,7 +6,14 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from mijobs.domain import ChallengeStatus
-from mijobs.models import Challenge, Claim, DerivedMetricRecord, EvidenceEdge, Observation, SourceArtifact
+from mijobs.models import (
+    Challenge,
+    Claim,
+    DerivedMetricRecord,
+    EvidenceEdge,
+    Observation,
+    SourceArtifact,
+)
 
 
 class EpistemicService:

@@ -26,7 +26,7 @@ class EvidenceQuality:
         values = list(asdict(self).values())
         if any(value == 0.0 for value in values):
             return 0.0
-        return math.prod(values) ** (1.0 / len(values))
+        return float(math.prod(values) ** (1.0 / len(values)))
 
     def as_dict(self) -> dict[str, float]:
         result = {key: float(value) for key, value in asdict(self).items()}

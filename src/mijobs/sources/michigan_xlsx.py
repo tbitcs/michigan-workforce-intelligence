@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import io
 import re
+from collections.abc import Iterable
 from datetime import date
 from decimal import Decimal, InvalidOperation
-from typing import Iterable
+from typing import ClassVar
 
 from openpyxl import load_workbook
+from openpyxl.workbook.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
 from mijobs.domain import ObservationInput
@@ -30,7 +32,7 @@ def _decimal(value: object) -> Decimal | None:
         return None
 
 
-def _workbook(artifact: FetchedArtifact):
+def _workbook(artifact: FetchedArtifact) -> Workbook:
     try:
         return load_workbook(io.BytesIO(artifact.content), read_only=True, data_only=True)
     except Exception as exc:  # openpyxl raises several format/zip errors
@@ -76,7 +78,7 @@ class MCDAProjectionParser:
     """Michigan MCDA long-term occupational projection workbook parser."""
 
     parser_version = "mcda-occupation-projections-xlsx/1"
-    ALIASES = {
+    ALIASES: ClassVar[dict[str, set[str]]] = {
         "code": {"occupation code", "soc code", "occ code", "code"},
         "title": {"occupation title", "occupational title", "occupation", "occ title"},
         "base": {"2024 employment", "base employment", "base year employment", "employment 2024"},
@@ -212,7 +214,7 @@ class MCDAOEWSParser:
     """Michigan MCDA OEWS workbook parser for employment and wage snapshots."""
 
     parser_version = "mcda-oews-xlsx/1"
-    ALIASES = {
+    ALIASES: ClassVar[dict[str, set[str]]] = {
         "code": {"occ code", "occupation code", "soc code", "code"},
         "title": {"occ title", "occupation title", "occupational title", "occupation"},
         "employment": {"tot emp", "total employment", "employment", "employment estimate"},

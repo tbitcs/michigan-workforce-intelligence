@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import io
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from openpyxl import Workbook
@@ -24,7 +24,7 @@ def _artifact(content: bytes, version: str) -> FetchedArtifact:
     return FetchedArtifact(
         source_id="mi_mcda_projections",
         locator="https://www.michigan.gov/mcda/example.xlsx",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content=content,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         dataset_version=version,

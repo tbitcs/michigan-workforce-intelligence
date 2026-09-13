@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from sqlalchemy.orm import Session
@@ -16,7 +16,7 @@ def _artifact(repo: EvidenceRepository):
     return repo.add_source_artifact(
         source_id="us_nces_ipeds",
         source_locator="https://nces.ed.gov/example-crosswalk.csv",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content_sha256="d" * 64,
         media_type="text/csv",
         byte_size=10,

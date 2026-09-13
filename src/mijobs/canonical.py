@@ -4,7 +4,7 @@ import dataclasses
 import hashlib
 import json
 import math
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from enum import Enum
 from pathlib import Path
@@ -17,7 +17,7 @@ class CanonicalizationError(ValueError):
 
 
 def _normalize(value: Any) -> Any:
-    if dataclasses.is_dataclass(value):
+    if dataclasses.is_dataclass(value) and not isinstance(value, type):
         return _normalize(dataclasses.asdict(value))
     if isinstance(value, Enum):
         return _normalize(value.value)
@@ -25,8 +25,8 @@ def _normalize(value: Any) -> Any:
         return str(value)
     if isinstance(value, datetime):
         if value.tzinfo is None:
-            value = value.replace(tzinfo=timezone.utc)
-        return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+            value = value.replace(tzinfo=UTC)
+        return value.astimezone(UTC).isoformat().replace("+00:00", "Z")
     if isinstance(value, date):
         return value.isoformat()
     if isinstance(value, Decimal):

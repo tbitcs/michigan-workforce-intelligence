@@ -31,7 +31,7 @@ class ArtifactStore:
         path.parent.mkdir(parents=True, exist_ok=True)
         if path.exists():
             if sha256_hex(path.read_bytes()) != digest:
-                raise IOError(f"artifact collision/corruption at {path}")
+                raise OSError(f"artifact collision/corruption at {path}")
             return StoredArtifact(digest, path, len(content), False)
 
         with NamedTemporaryFile(dir=path.parent, delete=False) as tmp:

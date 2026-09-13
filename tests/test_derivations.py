@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 
 import pytest
@@ -16,7 +16,7 @@ def _observation(repo: EvidenceRepository):
     artifact = repo.add_source_artifact(
         source_id="mi_mcda_projections",
         source_locator="https://www.michigan.gov/projections.xlsx",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content_sha256="e" * 64,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         byte_size=10,

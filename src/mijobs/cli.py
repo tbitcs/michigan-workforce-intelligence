@@ -17,7 +17,7 @@ def init_db() -> None:
     settings = Settings.from_env()
     engine = make_engine(settings.database_url)
     initialize_database(engine)
-    typer.echo(f"initialized {settings.database_url}")
+    typer.echo("database initialized")
 
 
 @app.command("verify-ledger")

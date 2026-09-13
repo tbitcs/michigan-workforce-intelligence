@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Iterable
 
 
 class IncompatibleMetricError(ValueError):
@@ -88,8 +88,8 @@ def training_pipeline_gap(
     )
     gap = annual_openings.value - known_supply
     classification = "shortage_pressure" if gap > 0 else "pipeline_meets_or_exceeds_openings"
-    included = ("annual_openings", "completions") + tuple(
-        key for key, value in optional.items() if value is not None
+    included = ("annual_openings", "completions",
+        *(key for key, value in optional.items() if value is not None)
     )
     missing = tuple(key for key, value in optional.items() if value is None)
     completeness = Decimal(len(included)) / Decimal(2 + len(optional))

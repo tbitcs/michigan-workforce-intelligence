@@ -9,14 +9,14 @@ from mijobs.sources.onet import ONetConnector
 
 __all__ = [
     "BLSConnector",
-    "CensusConnector",
     "CIPSOC2020CrosswalkParser",
+    "CensusConnector",
     "FetchedArtifact",
     "IPEDSConnector",
     "MCDAOEWSParser",
     "MCDAProjectionParser",
-    "OfficialArtifactConnector",
     "ONetConnector",
+    "OfficialArtifactConnector",
     "SourceConnector",
     "SourceFetchError",
 ]

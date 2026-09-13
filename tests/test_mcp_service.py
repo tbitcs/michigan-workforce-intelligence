@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC
 from decimal import Decimal
 
 import pytest
@@ -83,14 +84,15 @@ def test_mcp_policy_scenario_requires_explicit_assumptions_and_returns_json_safe
 
 
 def test_mcp_observation_search_defaults_to_latest_version(db_session: Session) -> None:
-    from datetime import datetime, timezone
+    from datetime import datetime
+
     from mijobs.domain import ObservationInput
 
     repo = EvidenceRepository(db_session)
     artifact = repo.add_source_artifact(
         source_id="us_bls_api",
         source_locator="https://api.bls.gov/x",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content_sha256="b" * 64,
         media_type="application/json",
         byte_size=1,
@@ -141,12 +143,12 @@ def test_mcp_query_limit_is_bounded(db_session: Session) -> None:
 
 
 def test_mcp_artifact_get_returns_provenance(db_session: Session) -> None:
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     artifact = EvidenceRepository(db_session).add_source_artifact(
         source_id="mi_mcda_qcew",
         source_locator="https://www.michigan.gov/qcew.xlsx",
-        retrieved_at=datetime(2026, 9, 11, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 9, 11, tzinfo=UTC),
         content_sha256="c" * 64,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         byte_size=123,

@@ -4,9 +4,10 @@ import csv
 import io
 import re
 import zipfile
-from datetime import date, datetime, timezone
+from collections.abc import Iterable
+from datetime import UTC, date, datetime
 from decimal import Decimal, InvalidOperation
-from typing import Iterable
+from typing import Any
 
 import httpx
 
@@ -63,7 +64,7 @@ class IPEDSConnector(SourceConnector):
         return FetchedArtifact(
             source_id=self.source_id,
             locator=str(response.url),
-            retrieved_at=datetime.now(timezone.utc),
+            retrieved_at=datetime.now(UTC),
             content=response.content,
             media_type="application/zip",
             dataset_version=str(collection_year),
@@ -273,7 +274,7 @@ class IPEDSConnector(SourceConnector):
                 "LONGITUD",
                 "LATITUDE",
             )
-            metadata = {key.lower(): row[key] for key in metadata_fields if key in row}
+            metadata: dict[str, Any] = {key.lower(): row[key] for key in metadata_fields if key in row}
             metadata.update(
                 {
                     "component": "Institutional Characteristics/Directory",

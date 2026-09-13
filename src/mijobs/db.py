@@ -8,7 +8,6 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from mijobs.models import Base
 
-
 IMMUTABLE_TABLES = (
     "source_artifacts",
     "observations",
