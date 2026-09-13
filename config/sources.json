@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "reviewed_at": "2026-09-11",
+  "reviewed_at": "2026-09-13",
   "sources": [
     {
       "id": "mi_mcda_laus",
@@ -11,10 +11,24 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/mcda/labor-market-information/laus",
       "access_mode": "download_or_portal",
-      "topics": ["labor_force", "employment_people", "unemployment", "unemployment_rate"],
-      "geographies": ["state", "county", "metro", "local_area"],
+      "topics": [
+        "labor_force",
+        "employment_people",
+        "unemployment",
+        "unemployment_rate"
+      ],
+      "geographies": [
+        "state",
+        "county",
+        "metro",
+        "local_area"
+      ],
       "cadence": "monthly",
-      "methodology_notes": "Residence-based estimates of people; not payroll job counts."
+      "methodology_notes": "Residence-based estimates of people; not payroll job counts.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Data and Analytics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/mcda/labor-market-information/laus",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_mcda_qcew",
@@ -25,10 +39,22 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/mcda/labor-market-information/qcew",
       "access_mode": "download_or_portal",
-      "topics": ["industry_employment", "wages", "establishments"],
-      "geographies": ["state", "county", "metro"],
+      "topics": [
+        "industry_employment",
+        "wages",
+        "establishments"
+      ],
+      "geographies": [
+        "state",
+        "county",
+        "metro"
+      ],
       "cadence": "quarterly",
-      "methodology_notes": "Primarily based on employers covered by unemployment-insurance laws; employment is payroll employment."
+      "methodology_notes": "Primarily based on employers covered by unemployment-insurance laws; employment is payroll employment.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Data and Analytics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/mcda/labor-market-information/qcew",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_mcda_oews",
@@ -39,10 +65,22 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/mcda/labor-market-information/oews",
       "access_mode": "xlsx_download",
-      "topics": ["occupation_employment", "occupation_wages"],
-      "geographies": ["state", "prosperity_region", "metro", "nonmetro"],
+      "topics": [
+        "occupation_employment",
+        "occupation_wages"
+      ],
+      "geographies": [
+        "state",
+        "prosperity_region",
+        "metro",
+        "nonmetro"
+      ],
       "cadence": "annual",
-      "methodology_notes": "Snapshot estimates. Michigan MCDA cautions against treating OEWS estimates as a simple year-to-year time series."
+      "methodology_notes": "Snapshot estimates. Michigan MCDA cautions against treating OEWS estimates as a simple year-to-year time series.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Data and Analytics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/mcda/labor-market-information/oews",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_mcda_projections",
@@ -53,10 +91,21 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/mcda/labor-market-information/employment-projections",
       "access_mode": "xlsx_download",
-      "topics": ["industry_projections", "occupation_projections", "annual_openings"],
-      "geographies": ["state", "prosperity_region"],
+      "topics": [
+        "industry_projections",
+        "occupation_projections",
+        "annual_openings"
+      ],
+      "geographies": [
+        "state",
+        "prosperity_region"
+      ],
       "cadence": "periodic",
-      "methodology_notes": "Current catalog includes statewide and regional 2024-2034 long-term projections."
+      "methodology_notes": "Statewide 2024-2034 and linked regional 2022-2032 vintages differ; verify actual file before comparison.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Data and Analytics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/mcda/labor-market-information/employment-projections",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_mcda_online_job_ads",
@@ -67,10 +116,21 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/mcda/labor-market-information",
       "access_mode": "publication_or_portal",
-      "topics": ["online_job_ads", "labor_demand", "supply_demand_ratio"],
-      "geographies": ["state", "region"],
+      "topics": [
+        "online_job_ads",
+        "labor_demand",
+        "supply_demand_ratio"
+      ],
+      "geographies": [
+        "state",
+        "region"
+      ],
       "cadence": "monthly",
-      "methodology_notes": "Advertisements are not identical to unique vacancies or hires; deduplication and carry-over methodology must be preserved."
+      "methodology_notes": "Advertisements are not identical to unique vacancies or hires; deduplication and carry-over methodology must be preserved.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Data and Analytics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/mcda/labor-market-information",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_cepi_mischooldata",
@@ -81,10 +141,26 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/cepi/mischooldata",
       "access_mode": "portal_and_download",
-      "topics": ["enrollment", "completion", "graduation", "postsecondary", "workforce_outcomes"],
-      "geographies": ["state", "isd", "district", "school", "college"],
+      "topics": [
+        "enrollment",
+        "completion",
+        "graduation",
+        "postsecondary",
+        "workforce_outcomes"
+      ],
+      "geographies": [
+        "state",
+        "isd",
+        "district",
+        "school",
+        "college"
+      ],
       "cadence": "varies",
-      "methodology_notes": "Michigan official public education-data portal. Baseline ingest is aggregate/public only."
+      "methodology_notes": "Michigan official public education-data portal. Baseline ingest is aggregate/public only.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Educational Performance and Information; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/cepi/mischooldata",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_cepi_starr",
@@ -95,10 +171,21 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/cepi/ihe/starr",
       "access_mode": "aggregate_reports_and_documentation",
-      "topics": ["postsecondary_programs", "courses", "awards"],
-      "geographies": ["institution", "state"],
+      "topics": [
+        "postsecondary_programs",
+        "courses",
+        "awards"
+      ],
+      "geographies": [
+        "institution",
+        "state"
+      ],
       "cadence": "academic_collection",
-      "methodology_notes": "Student-level source collection is restricted; use public aggregate outputs unless separately authorized."
+      "methodology_notes": "Student-level source collection is restricted; use public aggregate outputs unless separately authorized.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Educational Performance and Information; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/cepi/ihe/starr",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_cepi_mslds",
@@ -109,10 +196,21 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/cepi/mischooldata/mslds",
       "access_mode": "aggregate_reports",
-      "topics": ["education_longitudinal", "college_enrollment", "career_technical_education"],
-      "geographies": ["state", "education_entity"],
+      "topics": [
+        "education_longitudinal",
+        "college_enrollment",
+        "career_technical_education"
+      ],
+      "geographies": [
+        "state",
+        "education_entity"
+      ],
       "cadence": "varies",
-      "methodology_notes": "Centralized education repository; public access is through aggregate reports."
+      "methodology_notes": "Centralized education repository; public access is through aggregate reports.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Center for Educational Performance and Information; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/cepi/mischooldata/mslds",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "mi_leo_wlds",
@@ -123,10 +221,23 @@
       "domain": "michigan.gov",
       "landing_url": "https://www.michigan.gov/leo/bureaus-agencies/wd/data-public-notices/wlds",
       "access_mode": "aggregate_reports_and_linked_portals",
-      "topics": ["training_outcomes", "employment_outcomes", "education_workforce_linkage", "program_roi"],
-      "geographies": ["state", "program", "region"],
+      "topics": [
+        "training_outcomes",
+        "employment_outcomes",
+        "education_workforce_linkage",
+        "program_roi"
+      ],
+      "geographies": [
+        "state",
+        "program",
+        "region"
+      ],
       "cadence": "varies",
-      "methodology_notes": "Links education and workforce data; use aggregate published products unless separately authorized."
+      "methodology_notes": "Links education and workforce data; use aggregate published products unless separately authorized.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan Department of Labor and Economic Opportunity; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/leo/bureaus-agencies/wd/data-public-notices/wlds",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "us_bls_api",
@@ -139,10 +250,28 @@
       "api_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
       "access_mode": "json_api",
       "credential_env": "BLS_API_KEY",
-      "topics": ["labor_force", "employment", "unemployment", "wages", "prices", "occupations", "industry"],
-      "geographies": ["national", "state", "county", "metro", "local_area"],
+      "topics": [
+        "labor_force",
+        "employment",
+        "unemployment",
+        "wages",
+        "prices",
+        "occupations",
+        "industry"
+      ],
+      "geographies": [
+        "national",
+        "state",
+        "county",
+        "metro",
+        "local_area"
+      ],
       "cadence": "varies",
-      "methodology_notes": "Series semantics vary by BLS program; series metadata and survey identity must be retained."
+      "methodology_notes": "Series semantics vary by BLS program; series metadata and survey identity must be retained.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit U.S. Bureau of Labor Statistics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.bls.gov/developers/",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
     },
     {
       "id": "us_census_qwi",
@@ -155,10 +284,27 @@
       "api_url": "https://api.census.gov/data/timeseries/qwi/",
       "access_mode": "json_api",
       "credential_env": "CENSUS_API_KEY",
-      "topics": ["employment", "job_creation", "job_destruction", "wages", "hires", "separations", "worker_demographics"],
-      "geographies": ["state", "county", "metro", "workforce_investment_area"],
+      "topics": [
+        "employment",
+        "job_creation",
+        "job_destruction",
+        "wages",
+        "hires",
+        "separations",
+        "worker_demographics"
+      ],
+      "geographies": [
+        "state",
+        "county",
+        "metro",
+        "workforce_investment_area"
+      ],
       "cadence": "quarterly",
-      "methodology_notes": "QWI provides longitudinal employer-household indicators. Current Census developer guidance requires an API key."
+      "methodology_notes": "QWI provides longitudinal employer-household indicators. Current Census developer guidance requires an API key.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit U.S. Census Bureau LEHD; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.census.gov/data/developers/data-sets/qwi.html",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
     },
     {
       "id": "us_census_lodes",
@@ -169,10 +315,22 @@
       "domain": "census.gov",
       "landing_url": "https://lehd.ces.census.gov/data/",
       "access_mode": "bulk_download",
-      "topics": ["commuting", "home_work_flows", "job_geography"],
-      "geographies": ["census_block", "county", "state"],
+      "topics": [
+        "commuting",
+        "home_work_flows",
+        "job_geography"
+      ],
+      "geographies": [
+        "census_block",
+        "county",
+        "state"
+      ],
       "cadence": "annual_release",
-      "methodology_notes": "Useful for residence-workplace flows; release/version and geography vintage must be preserved."
+      "methodology_notes": "Useful for residence-workplace flows; release/version and geography vintage must be preserved.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Census Bureau LEHD; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://lehd.ces.census.gov/data/",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "us_census_pseo",
@@ -183,10 +341,23 @@
       "domain": "census.gov",
       "landing_url": "https://www.census.gov/data/experimental-data-products/post-secondary-employment-outcomes.html",
       "access_mode": "api_or_download",
-      "topics": ["graduate_earnings", "graduate_employment", "degree_major", "institution_outcomes"],
-      "geographies": ["institution", "state", "region"],
+      "topics": [
+        "graduate_earnings",
+        "graduate_employment",
+        "degree_major",
+        "institution_outcomes"
+      ],
+      "geographies": [
+        "institution",
+        "state",
+        "region"
+      ],
       "cadence": "periodic",
-      "methodology_notes": "Coverage depends on participating institutions/states and release; preserve coverage metadata."
+      "methodology_notes": "Coverage depends on participating institutions/states and release; preserve coverage metadata.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Census Bureau LEHD; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.census.gov/data/experimental-data-products/post-secondary-employment-outcomes.html",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
     },
     {
       "id": "us_nces_ipeds",
@@ -197,10 +368,26 @@
       "domain": "nces.ed.gov",
       "landing_url": "https://nces.ed.gov/ipeds/use-the-data",
       "access_mode": "bulk_download",
-      "topics": ["institutions", "enrollment", "completions", "awards", "graduation", "finance", "staff"],
-      "geographies": ["institution", "state", "national"],
+      "topics": [
+        "institutions",
+        "enrollment",
+        "completions",
+        "awards",
+        "graduation",
+        "finance",
+        "staff"
+      ],
+      "geographies": [
+        "institution",
+        "state",
+        "national"
+      ],
       "cadence": "annual_collection",
-      "methodology_notes": "Store survey component/year and provisional/final status where available."
+      "methodology_notes": "Store survey component/year and provisional/final status where available.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit National Center for Education Statistics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://nces.ed.gov/ipeds/use-the-data",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
     },
     {
       "id": "us_onet",
@@ -212,10 +399,24 @@
       "landing_url": "https://www.onetcenter.org/database.html",
       "access_mode": "bulk_download_or_web_service",
       "credential_env": "ONET_USERNAME/ONET_PASSWORD",
-      "topics": ["occupations", "skills", "knowledge", "abilities", "tasks", "technology", "work_context"],
-      "geographies": ["occupation"],
+      "topics": [
+        "occupations",
+        "skills",
+        "knowledge",
+        "abilities",
+        "tasks",
+        "technology",
+        "work_context"
+      ],
+      "geographies": [
+        "occupation"
+      ],
       "cadence": "quarterly",
-      "methodology_notes": "Persist O*NET database release and O*NET-SOC taxonomy version."
+      "methodology_notes": "Persist O*NET database release and O*NET-SOC taxonomy version.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit U.S. Department of Labor O*NET Program; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.onetonline.org/help/license",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
     },
     {
       "id": "us_dol_apprenticeship",
@@ -226,10 +427,377 @@
       "domain": "apprenticeship.gov",
       "landing_url": "https://www.apprenticeship.gov/data-and-statistics",
       "access_mode": "dashboard_or_download",
-      "topics": ["apprentices", "programs", "completions", "grants"],
-      "geographies": ["state", "national"],
+      "topics": [
+        "apprentices",
+        "programs",
+        "completions",
+        "grants"
+      ],
+      "geographies": [
+        "state",
+        "national"
+      ],
       "cadence": "frequent",
-      "methodology_notes": "Public dashboards are based on RAPIDS/state workload data; preserve data-through date and state notes."
+      "methodology_notes": "Public dashboards are based on RAPIDS/state workload data; preserve data-through date and state notes.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Department of Labor Office of Apprenticeship; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.apprenticeship.gov/data-and-statistics",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_ed_scorecard",
+      "name": "College Scorecard",
+      "publisher": "U.S. Department of Education",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "collegescorecard.ed.gov",
+      "landing_url": "https://collegescorecard.ed.gov/data/",
+      "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools.json",
+      "access_mode": "api_or_download",
+      "credential_env": "SCORECARD_API_KEY",
+      "topics": [
+        "earnings",
+        "completion",
+        "student_outcomes"
+      ],
+      "geographies": [
+        "institution"
+      ],
+      "cadence": "annual",
+      "methodology_notes": "Preserve explicit API data year and cohort definition; earnings are not Michigan retention or all-graduate placement. Latest fields may mix vintages.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit U.S. Department of Education; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://collegescorecard.ed.gov/data/",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
+    },
+    {
+      "id": "us_bls_bed",
+      "name": "BLS Business Employment Dynamics",
+      "publisher": "Bureau of Labor Statistics",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "bls.gov",
+      "landing_url": "https://www.bls.gov/bdm/",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "gross_job_gains",
+        "gross_job_losses",
+        "expansions",
+        "contractions"
+      ],
+      "geographies": [
+        "state",
+        "national"
+      ],
+      "cadence": "quarterly",
+      "methodology_notes": "Gross establishment job flows differ from worker hires/separations; not county estimates.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Bureau of Labor Statistics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.bls.gov/bdm/",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_bls_jolts",
+      "name": "BLS State JOLTS",
+      "publisher": "Bureau of Labor Statistics",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "bls.gov",
+      "landing_url": "https://www.bls.gov/jlt/",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "vacancies",
+        "hires",
+        "quits",
+        "layoffs"
+      ],
+      "geographies": [
+        "state",
+        "national"
+      ],
+      "cadence": "monthly",
+      "methodology_notes": "State experimental/model-based estimates are not county counts; vacancies differ from ads.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Bureau of Labor Statistics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.bls.gov/jlt/",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_bea_regional",
+      "name": "BEA Regional Accounts and Price Parities",
+      "publisher": "Bureau of Economic Analysis",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "bea.gov",
+      "landing_url": "https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "gdp",
+        "income",
+        "purchasing_power",
+        "regional_prices"
+      ],
+      "geographies": [
+        "state",
+        "metro",
+        "county"
+      ],
+      "cadence": "annual",
+      "methodology_notes": "RPP is a spatial price comparison, not household budget or CPI inflation; county GDP is not county RPP.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit Bureau of Economic Analysis; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
+    },
+    {
+      "id": "us_census_acs",
+      "name": "American Community Survey",
+      "publisher": "U.S. Census Bureau",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "census.gov",
+      "landing_url": "https://www.census.gov/programs-surveys/acs",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "housing",
+        "rent",
+        "commuting",
+        "poverty",
+        "education"
+      ],
+      "geographies": [
+        "state",
+        "county",
+        "tract"
+      ],
+      "cadence": "annual",
+      "methodology_notes": "Keep 1-year versus 5-year products, margins of error and geography vintages separate.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit U.S. Census Bureau; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.census.gov/programs-surveys/acs",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
+    },
+    {
+      "id": "us_census_bfs",
+      "name": "Business Formation Statistics",
+      "publisher": "U.S. Census Bureau",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "census.gov",
+      "landing_url": "https://www.census.gov/econ/bfs/",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "business_applications",
+        "formations"
+      ],
+      "geographies": [
+        "state",
+        "national"
+      ],
+      "cadence": "monthly",
+      "methodology_notes": "Applications are not employer births or jobs.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Census Bureau; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.census.gov/econ/bfs/",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_dol_claims",
+      "name": "Unemployment Insurance Claims",
+      "publisher": "U.S. Department of Labor",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "dol.gov",
+      "landing_url": "https://oui.doleta.gov/unemploy/claims.asp",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "initial_claims",
+        "continued_claims"
+      ],
+      "geographies": [
+        "state",
+        "national"
+      ],
+      "cadence": "weekly",
+      "methodology_notes": "UI eligibility/coverage and revisions apply; claims are not all unemployment.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Department of Labor; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://oui.doleta.gov/unemploy/claims.asp",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "mi_warn",
+      "name": "Michigan WARN notices",
+      "publisher": "Michigan LEO",
+      "jurisdiction": "MI",
+      "authority": "primary_official",
+      "domain": "michigan.gov",
+      "landing_url": "https://www.michigan.gov/leo/bureaus-agencies/wd/data-public-notices/warn-notices",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "layoff_notices",
+        "closures"
+      ],
+      "geographies": [
+        "employer",
+        "county",
+        "state"
+      ],
+      "cadence": "event",
+      "methodology_notes": "Notice coverage incomplete; filing date and expected separation date differ.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Michigan LEO; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.michigan.gov/leo/bureaus-agencies/wd/data-public-notices/warn-notices",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_federal_reserve",
+      "name": "Federal Reserve Economic Indicators",
+      "publisher": "Federal Reserve Board",
+      "jurisdiction": "US",
+      "authority": "primary_federal_reserve",
+      "domain": "federalreserve.gov",
+      "landing_url": "https://www.federalreserve.gov/datadownload/",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "industrial_production",
+        "credit",
+        "interest_rates",
+        "capacity"
+      ],
+      "geographies": [
+        "national"
+      ],
+      "cadence": "varies",
+      "methodology_notes": "Use original release/vintage; monetary conditions are contextual, not county layoff forecasts.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Federal Reserve Board; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.federalreserve.gov/datadownload/",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_nyfed_sce",
+      "name": "New York Fed Consumer Expectations",
+      "publisher": "Federal Reserve Bank of New York",
+      "jurisdiction": "US",
+      "authority": "primary_federal_reserve",
+      "domain": "newyorkfed.org",
+      "landing_url": "https://www.newyorkfed.org/microeconomics/sce",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "sentiment",
+        "inflation_expectations",
+        "job_loss_expectations"
+      ],
+      "geographies": [
+        "national"
+      ],
+      "cadence": "monthly",
+      "methodology_notes": "Survey expectations are perceptions, not Michigan actual outcomes; provider terms apply.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit Federal Reserve Bank of New York; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.newyorkfed.org/microeconomics/sce",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_dol_job_corps",
+      "name": "Job Corps",
+      "publisher": "U.S. Department of Labor",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "jobcorps.gov",
+      "landing_url": "https://www.jobcorps.gov/reports",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "youth_training",
+        "program_outcomes"
+      ],
+      "geographies": [
+        "center",
+        "national"
+      ],
+      "cadence": "varies",
+      "methodology_notes": "Center admissions and training capacity need confirmation; placements do not prove Michigan residence.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Department of Labor; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.jobcorps.gov/reports",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_hud_housing",
+      "name": "HUD Fair Market Rents",
+      "publisher": "U.S. Department of Housing and Urban Development",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "huduser.gov",
+      "landing_url": "https://www.huduser.gov/portal/datasets/fmr.html",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "housing_costs",
+        "fair_market_rents"
+      ],
+      "geographies": [
+        "metro",
+        "county"
+      ],
+      "cadence": "annual",
+      "methodology_notes": "FMR is a program benchmark, not every household actual rent; API requires separate token.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Department of Housing and Urban Development; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.huduser.gov/portal/datasets/fmr.html",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_eia_energy",
+      "name": "EIA Energy Data",
+      "publisher": "U.S. Energy Information Administration",
+      "jurisdiction": "US",
+      "authority": "primary_official",
+      "domain": "eia.gov",
+      "landing_url": "https://www.eia.gov/opendata/",
+      "access_mode": "reviewed_download_or_catalog",
+      "topics": [
+        "energy_prices",
+        "fuel",
+        "electricity"
+      ],
+      "geographies": [
+        "state",
+        "region",
+        "national"
+      ],
+      "cadence": "varies",
+      "methodology_notes": "Price geography/sector varies; no API enabled until key and endpoint policy reviewed.",
+      "implementation_status": "catalog_only_or_reviewed_manual_publication",
+      "attribution": "Credit U.S. Energy Information Administration; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.eia.gov/opendata/",
+      "api_policy": "No automated API enabled; review endpoint credentials, rate limits and content rights before activation."
+    },
+    {
+      "id": "us_bls_qcew",
+      "name": "BLS QCEW Open Data",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "jurisdiction": "MI",
+      "authority": "primary_official",
+      "domain": "bls.gov",
+      "landing_url": "https://www.bls.gov/cew/additional-resources/open-data/",
+      "access_mode": "csv_download",
+      "topics": [
+        "industry_employment",
+        "wages",
+        "establishments"
+      ],
+      "geographies": [
+        "state",
+        "county",
+        "metro"
+      ],
+      "cadence": "quarterly",
+      "methodology_notes": "Primarily based on employers covered by unemployment-insurance laws; employment is payroll employment.",
+      "implementation_status": "implemented_governed_collector",
+      "attribution": "Credit U.S. Bureau of Labor Statistics; preserve original product, period, geography, source URL and transformations. No endorsement implied.",
+      "license_url": "https://www.bls.gov/cew/additional-resources/open-data/",
+      "api_policy": "Governed default HTTP client; conservative shared rolling quotas, 429/503 cooldown, no automatic retries. See docs/source-policy.md."
     }
   ]
 }

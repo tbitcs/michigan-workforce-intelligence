@@ -1,0 +1,6 @@
+interface:
+  display_name: "Michigan Workforce Reports"
+  short_description: "Job-saving plans, skills pathways and workforce reports"
+  default_prompt: "Use $michigan-workforce-reports to design a Michigan job-saving program with verified evidence and funding options."
+policy:
+  allow_implicit_invocation: true

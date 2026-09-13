@@ -16,3 +16,6 @@ Run focused metadata tests, full Docker CI, restart application, initialize MCP 
 Explicit SDK Host/Origin allowlists prevent DNS rebinding while retaining Docker aliases. Configure through .env. Verify trusted clients succeed and untrusted Host/Origin requests fail, all 14 tools respond, full CI passes, and local CodeQL and dependency scans are reviewed. No cloud workflow activation.
 
 Base-image decision: upgrade Python 3.12 from Debian bookworm to trixie and apply published apt updates. The candidate scan shows fixes for critical Perl findings and no old SQLite critical finding; retain Python version and locked application dependencies. Rebuild runtime/CI and rescan before concluding.
+
+## Live data verification follow-up
+Validate stored artifact hashes and raw values independently of claim accuracy. Correct CPS report series semantics and actual-period YoY pairing, use latest observation versions, and reject invalid ledgers. Preserve raw evidence; append challenges to misinterpreted claims. Document actual stored coverage, missing institution/crosswalk data, and query/report examples. Deploy current tools only after Docker CI.

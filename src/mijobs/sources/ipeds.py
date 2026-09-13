@@ -13,6 +13,7 @@ import httpx
 
 from mijobs.domain import ObservationInput
 from mijobs.sources.base import FetchedArtifact, SourceConnector, SourceFetchError
+from mijobs.sources.http_policy import governed_client
 
 
 class IPEDSConnector(SourceConnector):
@@ -25,11 +26,11 @@ class IPEDSConnector(SourceConnector):
 
     source_id = "us_nces_ipeds"
     base_url = "https://nces.ed.gov/ipeds/datacenter/data"
-    parser_version = "ipeds-bulk/1"
+    parser_version = "ipeds-bulk/2"
     _SAFE_FILE = re.compile(r"^[A-Za-z0-9_\-]+\.zip$")
 
     def __init__(self, client: httpx.Client | None = None):
-        self.client = client or httpx.Client(timeout=120.0, follow_redirects=True)
+        self.client = client or governed_client(timeout=120.0, follow_redirects=True)
 
     def healthcheck(self) -> bool:
         try:
@@ -115,6 +116,7 @@ class IPEDSConnector(SourceConnector):
                 ObservationInput(
                     observation_key=(
                         f"ipeds:{collection_year}:completions:{unitid}:{cip}:{award_level}"
+                        + (f":major:{row['MAJORNUM'].strip()}" if "MAJORNUM" in row else "")
                     ),
                     metric="ipeds.completions.awards",
                     value_text=value_text,
@@ -133,6 +135,8 @@ class IPEDSConnector(SourceConnector):
                         "component": "Completions",
                         "survey_file": artifact.metadata.get("filename"),
                         "collection_year": collection_year,
+                        "major_number": row.get("MAJORNUM", "1").strip(),
+                        "imputation_flag": row.get("XCTOTALT", ""),
                         "award_level": award_level,
                         "award_level_field": award_level_field,
                         "total_field": total_field,

@@ -6,6 +6,7 @@ from typing import Any, TypeVar
 
 from mijobs.config import Settings, load_source_catalog
 from mijobs.db import initialize_database, make_engine, session_factory
+from mijobs.economic_context import economic_coverage, economic_series
 from mijobs.mcp_service import MCPService
 
 T = TypeVar("T")
@@ -27,10 +28,12 @@ def build_server() -> Any:
     except ImportError as exc:
         raise RuntimeError("Install the MCP extra: pip install -e '.[mcp]'") from exc
 
-    read_only = ToolAnnotations(read_only_hint=True, destructive_hint=False,
-                                idempotent_hint=True, open_world_hint=False)
-    write = ToolAnnotations(read_only_hint=False, destructive_hint=False,
-                            idempotent_hint=False, open_world_hint=False)
+    read_only = ToolAnnotations(
+        read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False
+    )
+    write = ToolAnnotations(
+        read_only_hint=False, destructive_hint=False, idempotent_hint=False, open_world_hint=False
+    )
     settings = Settings.from_env()
     engine = make_engine(settings.database_url)
     initialize_database(engine)
@@ -41,6 +44,20 @@ def build_server() -> Any:
     def call(fn: Callable[[MCPService], T]) -> T:
         with factory() as session:
             return fn(MCPService(session, catalog, write_enabled=settings.mcp_write_enabled))
+
+    @mcp.tool(annotations=read_only)
+    def economic_indicators(geography_code: str | None = None) -> dict[str, Any]:
+        """Discover stored economic metrics for counties/states; catalog membership is not data."""
+        return call(lambda service: economic_coverage(service.session, geography_code))
+
+    @mcp.tool(annotations=read_only)
+    def economic_trend(geography_code: str, metric: str, limit: int = 120) -> dict[str, Any]:
+        """Read latest evidence revisions in period order with units, adjustment and provenance."""
+        return call(
+            lambda service: economic_series(
+                service.session, geography_code=geography_code, metric=metric, limit=limit
+            )
+        )
 
     @mcp.tool(annotations=read_only)
     def sources_list() -> dict[str, Any]:
@@ -147,6 +164,36 @@ def build_server() -> Any:
         return call(lambda service: service.policy_training_scenario(payload))
 
     @mcp.tool(annotations=read_only)
+    def university_degree_relevance(payload: dict[str, Any]) -> dict[str, Any]:
+        """Explore caller-supplied completions, demand and crosswalks; does not fetch or authenticate source data."""
+        return call(lambda service: service.university_degree_relevance(payload))
+
+    @mcp.tool(annotations=read_only)
+    def university_pipeline_balance(payload: dict[str, Any]) -> dict[str, Any]:
+        """Explore caller-supplied pipeline counts; experimental comparison, not a measured Michigan labor shortage."""
+        return call(lambda service: service.university_pipeline_balance(payload))
+
+    @mcp.tool(annotations=read_only)
+    def university_retention_risk(payload: dict[str, Any]) -> dict[str, Any]:
+        """Estimate graduate retention risk using explicit caller-supplied rates; no causal inference."""
+        return call(lambda service: service.university_retention_risk(payload))
+
+    @mcp.tool(annotations=read_only)
+    def business_attraction(payload: dict[str, Any]) -> dict[str, Any]:
+        """Calculate a heuristic 0-1 scenario score from supplied inputs; not a validated prediction."""
+        return call(lambda service: service.business_attraction(payload))
+
+    @mcp.tool(annotations=read_only)
+    def university_summary(payload: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Summarize supplied scenarios; overlapping regional openings can be double-counted."""
+        return call(lambda service: service.university_summary(payload))
+
+    @mcp.tool(annotations=read_only)
+    def partner_institutions_list() -> dict[str, Any]:
+        """List all registered partner institutions with their focus areas and metadata."""
+        return call(lambda service: service.partner_institutions_list())
+
+    @mcp.tool(annotations=read_only)
     def report_context(claim_ids: list[str]) -> dict[str, Any]:
         """Build evidence-linked structured context for report generation."""
         return call(lambda service: service.report_context(claim_ids))
@@ -189,8 +236,14 @@ def serve_http() -> None:
         allowed_origins=[origin.strip() for origin in origins.split(",") if origin.strip()],
     )
     # Container listener; Compose publishes only on loopback. Host/Origin validation stays on.
-    build_server().run(transport="streamable-http", host="0.0.0.0", port=port,  # nosec B104
-                       json_response=True, stateless_http=True, transport_security=security)
+    build_server().run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=port,  # nosec B104
+        json_response=True,
+        stateless_http=True,
+        transport_security=security,
+    )
 
 
 def main() -> None:

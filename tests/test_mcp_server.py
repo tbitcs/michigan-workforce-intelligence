@@ -51,6 +51,8 @@ def test_build_server_exposes_explicit_public_signatures(
     assert isinstance(server, FakeMCPServer)
     expected = {
         "sources_list",
+        "economic_indicators",
+        "economic_trend",
         "observations_search",
         "artifacts_get",
         "claims_search",
@@ -62,6 +64,12 @@ def test_build_server_exposes_explicit_public_signatures(
         "gap_training_pipeline",
         "gap_market_tightness",
         "policy_training_scenario",
+        "university_degree_relevance",
+        "university_pipeline_balance",
+        "university_retention_risk",
+        "business_attraction",
+        "university_summary",
+        "partner_institutions_list",
         "report_context",
         "claims_challenge",
     }

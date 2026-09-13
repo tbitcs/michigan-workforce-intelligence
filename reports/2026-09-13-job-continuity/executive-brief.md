@@ -1,0 +1,23 @@
+# Executive brief: keep Michigan workers employed while their work changes
+
+**Proposal:** establish a 12-month, 200-worker Michigan Job Continuity pilot. Use existing Michigan Works! delivery partners, a small shared case team, employer-paid learning and verified receiving jobs. Start in Southeast Michigan, West Michigan and Southwest Michigan; keep statewide referrals open. Retain viable jobs first, support internal moves second, arrange voluntary direct transfers third, and assist unavoidable displacement immediately. Do not wait for separation to start matching.
+
+**Finding:** the database's ledger and row coverage pass, but its Michigan employment series is historical and it contains neither a statewide vacancy census nor individual worker skills. Current official sources support occupation-level opportunity screening; they do not prove that specific employers will hire participants. See the [evidence audit](evidence.md) and [demand analysis](report.md).
+
+**Inference:** adjacent manufacturing transitions are a sensible first test because some existing shop-floor skills may transfer to maintenance, controls and precision production. Engineering and defense pathways should use experienced workers' existing qualifications and employer-specific bridge training. A brief course cannot replace a required degree, substantial aviation experience or a clearance decision. Include healthcare, construction, logistics, business and service workers through the same case process; do not treat defense as the only destination.
+
+The five immediate decisions, in priority order, are:
+
+1. **Obtain real jobs before buying cohorts.** Ask 8–12 employers to supply dated, funded requisitions, internal redeployment opportunities and likely separation dates. Confirm shift, pay, benefits, prerequisites and a hiring decision owner. No employer has yet committed.
+2. **Create one accountable case process.** Assign a case owner within two business days, assess worker preferences and skills, resolve funding and supports, then record the retained role or signed offer. Payroll and worker follow-up confirm outcomes.
+3. **Finance continuity as well as tuition.** Reserve flexible resources for transportation, childcare, paid learning and lawful income bridges. Public programs have different eligibility and cost rules; [verified programs](funding.md) are financing routes, not awarded revenue.
+4. **Start small and release funds in stages.** Validate the first 30–50 cases in 90 days, then expand toward 200 only when jobs, provider capacity and financing are documented. A 40-student paid-work module is a separately funded option; inbound recruitment begins only for verified hard-to-fill roles.
+5. **Measure additional outcomes.** Compare with an appropriate control group. Count participants, durable jobs, incremental jobs retained and unemployment days separately. Report earnings, benefits and Michigan residence at follow-up; do not call every participant a saved job.
+
+**Assumption:** the core pilot requires **$1,408,000 in cash**, plus **$480,000 of employer-paid training time**, for a total economic resource envelope of **$1,888,000**. No grant receipts are assumed. The base scenario has 140 of 200 workers in a sustained job at six months, compared with an assumed 90 without the pilot: 50 additional outcomes. These are planning assumptions, not forecasts. See the reproducible [budget and scenarios](pilot.md).
+
+The launch decision should be conditional on a fiscal sponsor, employer commitments, local funding determinations and worker protections. The report is ready to guide that work; the evidence does not yet support promising zero unemployment, universal wage increases or a quantified statewide return on investment.
+
+**Job Corps revision:** add a distinct youth pathway through the Detroit, Flint/Genesee and Gerald R. Ford centers, subject to current admissions and program availability. Its education, training and support services complement the retention mission; living allowances do not replace incumbent wages. The [Job Corps analysis](job-corps.md) documents eligibility, operational uncertainty and employer transitions. A proposed 30-person local transition module adds $93,500. Including it and the optional student module raises the combined local cash envelope to **$1,794,940**, excluding federal Job Corps delivery costs. Track youth placements separately from layoffs prevented and avoid duplicate participant counts.
+
+The [scripted data reanalysis](data-reanalysis.md) recalculates the complete stored coverage and university outcomes. No new vacancy, worker-skill or Job Corps outcome dataset is implied by rerunning the analysis.

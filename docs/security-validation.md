@@ -1,5 +1,7 @@
 # MCP and security validation — 2026-09-13
 
+This is the earlier security-scan baseline. The subsequent [live-data verification](live-data-validation.md) deployed 20 tools, validated the populated database and passed current local CI. The 138-test/empty-store results below describe the earlier build; CodeQL and vulnerability scans have not been repeated against the new university/harvest/report modules. The previously missing private remote was subsequently created: `main` at `4932c1e8df4dfcdec69c8c6a81f37920dcd1e3a7` was verified with `git ls-remote`. No hosted workflows were enabled.
+
 MCP connectivity, local CI, and local CodeQL pass. Security is **not all-clear**: the final runtime image has 44 high-severity package findings across eight CVEs without a listed Debian fix. No critical findings remain. Scanner findings are not equivalent to proven exploitability; their reachability has not been exhaustively established.
 
 ## Verified results
@@ -49,3 +51,17 @@ Local evidence is in .venv/security-audit: ci-trixie.log, codeql.sarif, codeql-f
 Run the canonical gate with `docker compose run --rm --build ci`. CodeQL can be repeated by mounting the evidence directory at /reports and running its codeql.sh in the CI container. It downloads the official checksummed bundle into the disposable container. Vulnerability and secret scans were separate audit tools, not silently added cloud workflows.
 
 The initial network-enabled third-party secret-scan command was rejected by automatic approval review. The successful replacement used the official pinned image offline and mounted only the stated source folders.
+
+## Current report expansion validation
+
+The September 13 report expansion adds public aggregate BLS/BEA/ACS evidence, bounded MCP economic discovery/trends and an offline Docker report builder. Employer-specific confidential reporting remains a proposal. Report releases only package reviewed public snapshots; no evidence volume, credentials or participant database is uploaded.
+
+Local policy limits are conservative and shared through SQLite on one host/volume. They cannot observe external use of the same provider credentials. Catalog-only providers require separate endpoint and rights review before collection is implemented.
+
+## Expanded release verification (September 13, 2026)
+
+Current local Docker CI passes with 226 tests and 90.69% statement coverage, 30 source families, 59 traced requirements, Ruff and strict Mypy on 38 files. All 22 live MCP tools were exercised over loopback; invalid inputs/write-disabled challenges were rejected and the 8,193-event ledger was unchanged. The full database audit verified 38 artifact records and 2,365 observations. CodeQL's 174 security-and-quality queries scanned 89 Python files with zero findings. Local logs remain under `.venv/security-audit/`.
+
+These results supersede the older empty-store/tool-count and unavailable-remote baseline above. The user has now authorized the manual report-release workflow. Earlier OS vulnerability findings are not erased by a clean CodeQL result; this is not an all-clear production security certification.
+
+The rebuilt runtime was rescanned with Trivy after the expansion: **44 high-severity OS package findings across the same eight CVEs listed above, zero critical findings, zero high/critical Python findings, and no listed fixed versions**. The staged source snapshot passed Gitleaks with no leaks. These known OS findings remain documented rather than suppressed.

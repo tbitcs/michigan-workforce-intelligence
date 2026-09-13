@@ -4,6 +4,8 @@ import csv
 import io
 from typing import Any
 
+from openpyxl import load_workbook
+
 from mijobs.domain import MappingRelation, TaxonomyMappingInput
 from mijobs.sources.base import FetchedArtifact, SourceFetchError
 
@@ -16,7 +18,7 @@ class CIPSOC2020CrosswalkParser:
     carry no synthetic weight.
     """
 
-    parser_version = "nces-cip2020-soc2018/1"
+    parser_version = "nces-cip2020-soc2018/2"
 
     def normalize(
         self,
@@ -27,7 +29,16 @@ class CIPSOC2020CrosswalkParser:
         soc_field: str = "SOC2018Code",
         soc_title_field: str = "SOC2018Title",
     ) -> list[TaxonomyMappingInput]:
-        rows = _delimited_rows(artifact.content)
+        if artifact.content.startswith(b"PK"):
+            workbook = load_workbook(io.BytesIO(artifact.content), read_only=True, data_only=True)
+            try:
+                values = iter(workbook["CIP-SOC"].values)
+                header = [str(v) for v in next(values)]
+                rows = [dict(zip(header, (str(v) if v is not None else "" for v in row), strict=True)) for row in values]
+            finally:
+                workbook.close()
+        else:
+            rows = _delimited_rows(artifact.content)
         required = {cip_field, soc_field}
         if not rows:
             raise SourceFetchError("CIP-SOC crosswalk contains no rows")
@@ -40,7 +51,7 @@ class CIPSOC2020CrosswalkParser:
         for row in rows:
             cip = row[cip_field].strip()
             soc = row[soc_field].strip()
-            if not cip or not soc:
+            if not cip or not soc or cip == "99.9999" or soc == "99-9999":
                 continue
             pair = (cip, soc)
             if pair in seen:

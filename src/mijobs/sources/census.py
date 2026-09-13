@@ -11,6 +11,7 @@ import httpx
 
 from mijobs.domain import ObservationInput
 from mijobs.sources.base import FetchedArtifact, SourceConnector, SourceFetchError
+from mijobs.sources.http_policy import governed_client
 
 
 class CensusConnector(SourceConnector):
@@ -21,7 +22,7 @@ class CensusConnector(SourceConnector):
 
     def __init__(self, api_key: str | None, client: httpx.Client | None = None):
         self.api_key = api_key
-        self.client = client or httpx.Client(timeout=30.0)
+        self.client = client or governed_client(timeout=30.0)
 
     def healthcheck(self) -> bool:
         if not self.api_key:
@@ -46,7 +47,7 @@ class CensusConnector(SourceConnector):
     ) -> FetchedArtifact:
         if endpoint not in self.ALLOWED_ENDPOINTS:
             raise ValueError(f"QWI endpoint must be one of {sorted(self.ALLOWED_ENDPOINTS)}")
-        if not indicators:
+        if not indicators or len(indicators) > 50:
             raise ValueError("at least one QWI indicator is required")
         if not self.api_key:
             raise SourceFetchError("CENSUS_API_KEY is required for current QWI API access")
@@ -56,13 +57,15 @@ class CensusConnector(SourceConnector):
             "time": time,
             "key": self.api_key,
         }
+        if set(filters or {}) & {"key", "get", "for", "time"}:
+            raise ValueError("QWI filters cannot override reserved request parameters")
         params.update(filters or {})
         url = f"{self.base_url}/{endpoint}"
         response = self.client.get(url, params=params)
         try:
             response.raise_for_status()
-        except httpx.HTTPError as exc:
-            raise SourceFetchError(f"Census QWI HTTP request failed: {exc}") from exc
+        except httpx.HTTPError:
+            raise SourceFetchError(f"Census QWI HTTP request failed: {response.status_code}") from None
         try:
             json.loads(response.content)
         except json.JSONDecodeError as exc:

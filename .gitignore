@@ -17,7 +17,16 @@ artifacts/raw/*
 !artifacts/raw/.gitkeep
 .DS_Store
 
+# Local agent/MCP configuration
+.roo/
+
 # Environment variants and rendered deployment secrets
 .env.*
 !.env.example
 deploy/generated*
+
+# Local generated report output
+artifacts/reports/
+.cache/
+output/
+tmp/

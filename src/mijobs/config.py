@@ -48,12 +48,17 @@ class SourceDefinition(BaseModel):
     geographies: list[str]
     cadence: str
     methodology_notes: str
+    implementation_status: str = "catalog_only"
+    attribution: str = "Credit the named publisher and original release; no endorsement implied."
+    license_url: str | None = None
+    api_policy: str = "No automated endpoint enabled until its access rules are reviewed."
 
     @field_validator("domain")
     @classmethod
     def official_domain(cls, value: str) -> str:
         allowed = (
-            value == "michigan.gov"
+            value in {"bea.gov", "dol.gov", "federalreserve.gov", "newyorkfed.org", "jobcorps.gov", "huduser.gov", "eia.gov"}
+            or value == "michigan.gov"
             or value.endswith(".michigan.gov")
             or value == "bls.gov"
             or value.endswith(".bls.gov")

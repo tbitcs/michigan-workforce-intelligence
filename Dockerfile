@@ -44,6 +44,16 @@ USER mijobs
 ENV STRICT_TOOLS=1
 CMD ["make", "ci-local"]
 
+FROM runtime AS reports
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends poppler-utils fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+RUN uv sync --frozen --no-dev --extra mcp --extra reports
+ENV MPLCONFIGDIR=/tmp/matplotlib
+WORKDIR /workspace
+ENTRYPOINT []
+CMD ["python", "scripts/build_reports.py", "--help"]
+
 FROM runtime AS manager
 USER root
 COPY --from=dockercli /usr/local/bin/docker /usr/local/bin/docker

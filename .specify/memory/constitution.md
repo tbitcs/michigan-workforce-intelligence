@@ -1,6 +1,6 @@
 # Michigan Workforce Intelligence Constitution
 
-**Version:** 1.0.0
+**Version:** 1.1.0
 **Ratified:** 2026-09-11
 
 ## I. Evidence before narrative
@@ -26,6 +26,8 @@ Ingest public aggregate data by default. Restricted microdata, PII, education re
 
 ## VIII. Local quality gate
 CI is local-first. Unit tests, static checks, source-registry validation, Spec Kit traceability, and ledger verification must pass before a commit is considered releasable.
+
+User-authorized exception (2026-09-13): manual GitHub report releases may run portable launcher validation and build/publish reviewed aggregate report assets. Release automation must exclude live databases and secrets and preserve evidence review dates independently of build timestamps. Local application CI remains canonical.
 
 ## IX. Reasoning economy
 Use deterministic transforms and cached evidence for routine work. Spend high-capability model reasoning on ambiguity, conflicts, analysis, and policy—not on mechanical ETL.

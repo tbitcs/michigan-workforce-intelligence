@@ -62,4 +62,6 @@ Do not commit API keys, restricted student-level data, PII, confidential UI clai
 
 A task is not done until tests cover happy path, boundary conditions, invalid inputs, evidence lineage, and ledger integrity where applicable. Run `make ci` locally before commit. Do not enable cloud CI without an explicit project decision; local CI is the canonical gate for now.
 
+The user authorized a manual GitHub report-release workflow and Linux/Windows/macOS launcher validation on 2026-09-13 (spec 006). This scoped release automation may publish reviewed reports; it does not replace the local application gate or authorize uploading live database volumes, credentials or private participant data.
+
 @RTK.md

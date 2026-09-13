@@ -1,0 +1,113 @@
+{
+  "schema": "michigan-job-continuity-scenario/v1",
+  "as_of": "2026-09-13",
+  "status": "illustrative assumptions, not estimated effects or funding awards",
+  "core_workers": 200,
+  "cash_items": {
+    "training_200_times_2500": 500000,
+    "four_fte_loaded_100000_each": 400000,
+    "supports_200_times_800": 160000,
+    "flexible_bridge_80_times_1500": 120000,
+    "data_legal_independent_evaluation": 100000
+  },
+  "cash_subtotal": 1280000,
+  "contingency_10_percent": 128000,
+  "total_cash": 1408000,
+  "employer_paid_training_time_200_times_80_hours_times_30_loaded": 480000,
+  "total_economic_resources": 1888000,
+  "committed_grant_revenue": 0,
+  "scenarios": {
+    "low": {
+      "workers": 200,
+      "six_month_sustained_with_program": 110,
+      "assumed_sustained_without_program": 90,
+      "additional_sustained_outcomes": 20,
+      "mean_unemployment_days_with_program": 30,
+      "assumed_mean_days_without_program": 45,
+      "aggregate_unemployment_days_avoided": 3000,
+      "workers_with_hourly_gain": 20,
+      "hourly_gain_dollars": 2,
+      "annualized_gross_wage_gain_at_2080_hours": 83200,
+      "cash_cost_per_sustained": 12800.0,
+      "cash_cost_per_additional_sustained": 70400.0,
+      "economic_cost_per_additional_sustained": 94400.0,
+      "cash_cost_per_unemployment_day_avoided": 469.33
+    },
+    "base": {
+      "workers": 200,
+      "six_month_sustained_with_program": 140,
+      "assumed_sustained_without_program": 90,
+      "additional_sustained_outcomes": 50,
+      "mean_unemployment_days_with_program": 18,
+      "assumed_mean_days_without_program": 45,
+      "aggregate_unemployment_days_avoided": 5400,
+      "workers_with_hourly_gain": 50,
+      "hourly_gain_dollars": 3,
+      "annualized_gross_wage_gain_at_2080_hours": 312000,
+      "cash_cost_per_sustained": 10057.14,
+      "cash_cost_per_additional_sustained": 28160.0,
+      "economic_cost_per_additional_sustained": 37760.0,
+      "cash_cost_per_unemployment_day_avoided": 260.74
+    },
+    "high": {
+      "workers": 200,
+      "six_month_sustained_with_program": 170,
+      "assumed_sustained_without_program": 90,
+      "additional_sustained_outcomes": 80,
+      "mean_unemployment_days_with_program": 8,
+      "assumed_mean_days_without_program": 45,
+      "aggregate_unemployment_days_avoided": 7400,
+      "workers_with_hourly_gain": 80,
+      "hourly_gain_dollars": 4,
+      "annualized_gross_wage_gain_at_2080_hours": 665600,
+      "cash_cost_per_sustained": 8282.35,
+      "cash_cost_per_additional_sustained": 17600.0,
+      "economic_cost_per_additional_sustained": 23600.0,
+      "cash_cost_per_unemployment_day_avoided": 190.27
+    }
+  },
+  "optional_students": {
+    "people_excluded_from_core": 40,
+    "paid_hours_each": 240,
+    "hourly_wage_assumption": 22,
+    "gross_wages": 211200,
+    "payroll_load_assumption_20_percent": 42240,
+    "coordination_and_support": 40000,
+    "additional_total": 293440
+  },
+  "optional_job_corps": {
+    "people_excluded_from_core_and_students": 30,
+    "local_cash_assumption": 93500,
+    "federal_training_and_residence_cost": null,
+    "sustained_outcomes_low_base_high": [
+      10,
+      18,
+      24
+    ],
+    "counterfactual_outcomes_low_base_high": [
+      8,
+      10,
+      12
+    ],
+    "additional_outcomes_low_base_high": [
+      2,
+      8,
+      12
+    ],
+    "cost_per_additional_outcome_low_base_high": [
+      46750,
+      11687.5,
+      7791.666667
+    ],
+    "combined_local_cash_with_core_and_students": 1794940,
+    "combined_economic_resources_excluding_unknown_federal_cost": 2274940
+  },
+  "limits": [
+    "Six-month outcomes are distinct from twelve-month retention.",
+    "The control assumptions are not observed in the database.",
+    "Wage gains are annualized at full-time hours, not realized year-one benefits.",
+    "Do not add wage gains and unemployment-day values into a benefit total.",
+    "Training cost is a blended allowance, not a quoted course price.",
+    "UI payments, ordinary productive wages and inbound relocation are excluded."
+  ]
+}

@@ -9,6 +9,7 @@ import httpx
 
 from mijobs.domain import ObservationInput
 from mijobs.sources.base import FetchedArtifact, SourceConnector, SourceFetchError
+from mijobs.sources.http_policy import governed_client
 
 
 class ONetConnector(SourceConnector):
@@ -29,7 +30,7 @@ class ONetConnector(SourceConnector):
     ALLOWED_DATASETS = ALLOWED_RATING_DATASETS | ALLOWED_CATEGORICAL_DATASETS
 
     def __init__(self, client: httpx.Client | None = None):
-        self.client = client or httpx.Client(timeout=120.0, follow_redirects=True)
+        self.client = client or governed_client(timeout=120.0, follow_redirects=True)
 
     def healthcheck(self) -> bool:
         try:

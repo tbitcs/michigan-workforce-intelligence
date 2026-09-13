@@ -13,15 +13,15 @@ Or, once evidence is ingested:
 > Search Michigan observations for the requested metric, report the source and observation periods, and explain any missing evidence. Do not treat the source registry as data.
 
 ## What is complete
-Docker Compose runtime, single .env setup, persistent storage, Rich manager, deterministic evidence core, 14 MCP tools, local strict CI, separate-agent network, and optional Kubernetes manifest generation.
+Docker Compose runtime, single .env setup, persistent storage, Rich manager, deterministic evidence core, 20 MCP tools, local strict CI, separate-agent network, and optional Kubernetes manifest generation.
 
 ## What is not complete
-The store verified on 2026-09-13 contains zero evidence-bearing records and zero ledger events. Registry entries describe available source families; they are not downloaded observations. MCP has no general live-source ingestion tool. Current workforce answers require ingesting and validating source data first.
+The populated store verified on 2026-09-13 contains 248 observations from 9 raw artifacts: U.S. BLS data through August 2026 and historical Michigan QWI data through 2021 Q4. See the [README coverage and query guide](../README.md#data-coverage-and-readiness). University academic awards, official crosswalks and Scorecard outcomes are now supported by `harvest-universities`; see the current README report workflow. Michigan retention remains unavailable. MCP has no general live-source ingestion tool; the Docker CLI provides harvest and report commands. Scenario calculators consume supplied inputs and are not validated outcome forecasts.
 
 Foundation tasks still open: Census LODES/PSEO plus geographic hierarchy, signed/Merkle checkpoints, the official O*NET-SOC 2019 → SOC 2018 crosswalk, and validation against exact official Michigan release workbooks. The roadmap also includes deeper loaders and reporting features. Do not describe the whole platform as production-complete or capable of every planned analysis.
 
 ## Tool behavior
-13 tools are marked read-only; `claims_challenge` is marked as a non-destructive, non-idempotent write and still requires server-side MIJOBS_MCP_WRITE_ENABLED opt-in. Server initialization instructions explicitly require evidence searches and tracing and prohibit invented figures when results are empty.
+19 tools are marked read-only; `claims_challenge` is marked as a non-destructive, non-idempotent write and still requires server-side MIJOBS_MCP_WRITE_ENABLED opt-in. Server initialization instructions explicitly require evidence searches and tracing and prohibit invented figures when results are empty.
 
 References: [official desktop MCP setup](https://learn.chatgpt.com/docs/extend/mcp), [ChatGPT MCP tool behavior](https://developers.openai.com/api/docs/guides/developer-mode).
 

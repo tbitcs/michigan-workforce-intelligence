@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 import httpx
 
 from mijobs.sources.base import FetchedArtifact, SourceConnector, SourceFetchError
+from mijobs.sources.http_policy import governed_client
 
 
 class OfficialArtifactConnector(SourceConnector):
@@ -27,7 +28,7 @@ class OfficialArtifactConnector(SourceConnector):
         client: httpx.Client | None = None,
         allowed_host_suffixes: tuple[str, ...] | None = None,
     ):
-        self.client = client or httpx.Client(timeout=60.0, follow_redirects=True)
+        self.client = client or governed_client(timeout=60.0, follow_redirects=True)
         self.allowed_host_suffixes = allowed_host_suffixes or self.DEFAULT_ALLOWED_HOST_SUFFIXES
 
     def healthcheck(self) -> bool:

@@ -10,6 +10,7 @@ import httpx
 
 from mijobs.domain import ObservationInput
 from mijobs.sources.base import FetchedArtifact, SourceConnector, SourceFetchError
+from mijobs.sources.http_policy import governed_client
 
 
 class BLSConnector(SourceConnector):
@@ -19,7 +20,7 @@ class BLSConnector(SourceConnector):
 
     def __init__(self, api_key: str | None = None, client: httpx.Client | None = None):
         self.api_key = api_key
-        self.client = client or httpx.Client(timeout=30.0)
+        self.client = client or governed_client(timeout=30.0)
 
     def healthcheck(self) -> bool:
         try:
@@ -36,11 +37,11 @@ class BLSConnector(SourceConnector):
         end_year: int,
         catalog: bool = True,
     ) -> FetchedArtifact:
-        if not series_ids or len(series_ids) > 50:
+        if not series_ids or len(series_ids) > (50 if self.api_key else 25):
             raise ValueError("BLS request requires 1-50 series IDs")
         if start_year > end_year or start_year < 1900 or end_year > 2200:
             raise ValueError("invalid year range")
-        if end_year - start_year > 20:
+        if end_year - start_year + 1 > (20 if self.api_key else 10):
             raise ValueError("BLS v2 time range must not exceed 20 years")
         payload: dict[str, Any] = {
             "seriesid": series_ids,
@@ -54,7 +55,7 @@ class BLSConnector(SourceConnector):
         try:
             response.raise_for_status()
         except httpx.HTTPError as exc:
-            raise SourceFetchError(f"BLS HTTP request failed: {exc}") from exc
+            raise SourceFetchError(f"BLS HTTP request failed: {response.status_code}") from exc
         try:
             body = response.json()
         except ValueError as exc:

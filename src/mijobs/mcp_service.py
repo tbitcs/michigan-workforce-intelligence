@@ -12,12 +12,27 @@ from mijobs.analytics.policy import (
     assumptions_from_mapping,
     evaluate_training_policy_sensitivity,
 )
+from mijobs.analytics.university import (
+    BusinessAttractionInput,
+    DegreeRelevanceInput,
+    OccupationDemandInput,
+    RetentionRiskInput,
+    RetentionRiskResult,
+    UniversityPipelineResult,
+    business_attraction_signal,
+    crosswalk_edges_from_mappings,
+    degree_relevance,
+    retention_risk,
+    university_pipeline_balance,
+    university_workforce_summary,
+)
 from mijobs.config import SourceCatalog
 from mijobs.epistemics import EpistemicService
 from mijobs.ledger import audit_evidence_coverage, verify_ledger
 from mijobs.models import Claim, Observation, SourceArtifact, TaxonomyMapping
 from mijobs.reporting import ReportContextBuilder
 from mijobs.repository import EvidenceRepository
+from mijobs.sources.institutions import PARTNER_INSTITUTIONS, get_partner_institution
 
 
 class MCPService:
@@ -275,6 +290,245 @@ class MCPService:
             high=assumptions_from_mapping(payload["high"]),
         )
         return _jsonable_dict(asdict(result))
+
+    def university_degree_relevance(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Match a partner institution's CIP completions to in-demand SOC occupations.
+
+        Required payload keys:
+          - institution_unitid: IPEDS UnitID of the partner institution
+          - completions: list of {cip_code, annual_completions, cip_version?}
+          - demand: list of {soc_code, annual_openings, soc_version?, median_wage?}
+          - crosswalk: list of {from_code, to_code, from_version?, to_version?, relation?}
+        """
+        unitid = payload.get("institution_unitid")
+        if not unitid:
+            raise ValueError("institution_unitid is required")
+        institution = get_partner_institution(unitid)
+        if institution is None:
+            raise ValueError(f"institution_unitid {unitid!r} is not a registered partner institution")
+
+        completions_raw = payload.get("completions", [])
+        if not completions_raw:
+            raise ValueError("completions list is required and must be non-empty")
+        completions = [
+            DegreeRelevanceInput(
+                institution_unitid=unitid,
+                cip_code=c["cip_code"],
+                cip_version=c.get("cip_version", "2020"),
+                annual_completions=Decimal(str(c["annual_completions"])),
+            )
+            for c in completions_raw
+        ]
+
+        demand_raw = payload.get("demand", [])
+        if not demand_raw:
+            raise ValueError("demand list is required and must be non-empty")
+        demand = [
+            OccupationDemandInput(
+                soc_code=d["soc_code"],
+                soc_version=d.get("soc_version", "2018"),
+                annual_openings=Decimal(str(d["annual_openings"])),
+                geography_code=d.get("geography_code", "MI"),
+                median_wage=Decimal(str(d["median_wage"])) if d.get("median_wage") else None,
+            )
+            for d in demand_raw
+        ]
+
+        crosswalk_raw = payload.get("crosswalk", [])
+        if not crosswalk_raw:
+            raise ValueError("crosswalk list is required and must be non-empty")
+        crosswalk = crosswalk_edges_from_mappings(crosswalk_raw)
+
+        result = degree_relevance(
+            institution=institution,
+            completions=completions,
+            demand=demand,
+            crosswalk=crosswalk,
+        )
+        return _jsonable_dict(asdict(result))
+
+    def university_pipeline_balance(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Compute net pipeline surplus/deficit for a partner institution.
+
+        Same payload structure as university_degree_relevance.
+        """
+        unitid = payload.get("institution_unitid")
+        if not unitid:
+            raise ValueError("institution_unitid is required")
+        institution = get_partner_institution(unitid)
+        if institution is None:
+            raise ValueError(f"institution_unitid {unitid!r} is not a registered partner institution")
+
+        completions_raw = payload.get("completions", [])
+        if not completions_raw:
+            raise ValueError("completions list is required and must be non-empty")
+        completions = [
+            DegreeRelevanceInput(
+                institution_unitid=unitid,
+                cip_code=c["cip_code"],
+                cip_version=c.get("cip_version", "2020"),
+                annual_completions=Decimal(str(c["annual_completions"])),
+            )
+            for c in completions_raw
+        ]
+
+        demand_raw = payload.get("demand", [])
+        if not demand_raw:
+            raise ValueError("demand list is required and must be non-empty")
+        demand = [
+            OccupationDemandInput(
+                soc_code=d["soc_code"],
+                soc_version=d.get("soc_version", "2018"),
+                annual_openings=Decimal(str(d["annual_openings"])),
+                geography_code=d.get("geography_code", "MI"),
+            )
+            for d in demand_raw
+        ]
+
+        crosswalk_raw = payload.get("crosswalk", [])
+        if not crosswalk_raw:
+            raise ValueError("crosswalk list is required and must be non-empty")
+        crosswalk = crosswalk_edges_from_mappings(crosswalk_raw)
+
+        result = university_pipeline_balance(
+            institution=institution,
+            completions=completions,
+            demand=demand,
+            crosswalk=crosswalk,
+        )
+        return _jsonable_dict(asdict(result))
+
+    def university_retention_risk(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Estimate graduate retention risk for a partner institution.
+
+        Required payload keys:
+          - institution_unitid: IPEDS UnitID
+          - annual_graduates: total graduates
+          - michigan_resident_share: fraction [0,1]
+          - in_state_job_match_rate: fraction [0,1]
+          - out_migration_rate: fraction [0,1]
+        """
+        unitid = payload.get("institution_unitid")
+        if not unitid:
+            raise ValueError("institution_unitid is required")
+        institution = get_partner_institution(unitid)
+        if institution is None:
+            raise ValueError(f"institution_unitid {unitid!r} is not a registered partner institution")
+
+        inputs = RetentionRiskInput(
+            annual_graduates=Decimal(str(payload["annual_graduates"])),
+            michigan_resident_share=Decimal(str(payload["michigan_resident_share"])),
+            in_state_job_match_rate=Decimal(str(payload["in_state_job_match_rate"])),
+            out_migration_rate=Decimal(str(payload["out_migration_rate"])),
+        )
+        result = retention_risk(institution=institution, inputs=inputs)
+        return _jsonable_dict(asdict(result))
+
+    def business_attraction(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Evaluate out-of-state business attraction potential for a target industry.
+
+        Required payload keys:
+          - target_industry_naics: NAICS code
+          - current_establishments, projected_establishments_5yr
+          - current_employment, projected_employment_5yr
+          - target_occupations: list of {soc_code, annual_openings}
+          - median_wage_target, median_wage_michigan (optional)
+        """
+        target_occupations = [
+            OccupationDemandInput(
+                soc_code=d["soc_code"],
+                soc_version=d.get("soc_version", "2018"),
+                annual_openings=Decimal(str(d["annual_openings"])),
+                geography_code=d.get("geography_code", "MI"),
+            )
+            for d in payload.get("target_occupations", [])
+        ]
+        inputs = BusinessAttractionInput(
+            target_industry_naics=payload["target_industry_naics"],
+            target_occupations=tuple(target_occupations),
+            current_establishments=Decimal(str(payload["current_establishments"])),
+            projected_establishments_5yr=Decimal(str(payload["projected_establishments_5yr"])),
+            current_employment=Decimal(str(payload["current_employment"])),
+            projected_employment_5yr=Decimal(str(payload["projected_employment_5yr"])),
+            median_wage_target=Decimal(str(payload["median_wage_target"])) if payload.get("median_wage_target") else None,
+            median_wage_michigan=Decimal(str(payload["median_wage_michigan"])) if payload.get("median_wage_michigan") else None,
+        )
+        result = business_attraction_signal(inputs=inputs)
+        return _jsonable_dict(asdict(result))
+
+    def university_summary(self, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Aggregate workforce pipeline summary across all partner institutions.
+
+        Optional payload keys:
+          - pipeline_results: list of results from university_pipeline_balance
+          - retention_results: list of results from university_retention_risk
+        """
+        payload = payload or {}
+        pipeline_results_raw = payload.get("pipeline_results", [])
+        if not pipeline_results_raw:
+            raise ValueError("pipeline_results list is required and must be non-empty")
+
+        pipeline_results = [
+            UniversityPipelineResult(
+                formula_version=r.get("formula_version", "university_pipeline_balance/v1"),
+                institution_unitid=r["institution_unitid"],
+                institution_name=r.get("institution_name"),
+                total_annual_completions=Decimal(str(r["total_annual_completions"])),
+                total_annual_openings_matched=Decimal(str(r["total_annual_openings_matched"])),
+                pipeline_surplus=Decimal(str(r.get("pipeline_surplus", "0"))),
+                pipeline_deficit=Decimal(str(r.get("pipeline_deficit", "0"))),
+                net_balance=Decimal(str(r["net_balance"])),
+                classification=r.get("classification", "unknown"),
+                focus_areas=tuple(r.get("focus_areas", ())),
+                caveats=tuple(r.get("caveats", ())),
+            )
+            for r in pipeline_results_raw
+        ]
+
+        retention_results = None
+        retention_raw = payload.get("retention_results")
+        if retention_raw:
+            retention_results = [
+                RetentionRiskResult(
+                    formula_version=r.get("formula_version", "retention_risk/v1"),
+                    institution_unitid=r["institution_unitid"],
+                    institution_name=r.get("institution_name"),
+                    annual_graduates=Decimal(str(r["annual_graduates"])),
+                    estimated_michigan_retained=Decimal(str(r["estimated_michigan_retained"])),
+                    estimated_leaving_michigan=Decimal(str(r["estimated_leaving_michigan"])),
+                    retention_rate=Decimal(str(r["retention_rate"])),
+                    risk_classification=r.get("risk_classification", "unknown"),
+                    caveats=tuple(r.get("caveats", ())),
+                )
+                for r in retention_raw
+            ]
+
+        result = university_workforce_summary(
+            institutions=PARTNER_INSTITUTIONS,
+            pipeline_results=pipeline_results,
+            retention_results=retention_results,
+        )
+        return _jsonable_dict(asdict(result))
+
+    def partner_institutions_list(self) -> dict[str, Any]:
+        """List all registered partner institutions with their focus areas."""
+        return {
+            "count": len(PARTNER_INSTITUTIONS),
+            "institutions": [
+                {
+                    "unitid": inst.unitid,
+                    "name": inst.name,
+                    "city": inst.city,
+                    "state": inst.state,
+                    "control": inst.control,
+                    "sector": inst.sector,
+                    "iclevel": inst.iclevel,
+                    "focus_areas": list(inst.focus_areas),
+                    "metadata": inst.metadata,
+                }
+                for inst in PARTNER_INSTITUTIONS
+            ],
+        }
 
     def report_context(self, claim_ids: list[str]) -> dict[str, Any]:
         return ReportContextBuilder(self.session).build(claim_ids)
