@@ -323,6 +323,8 @@ See [source methodology](docs/source-methodology.md) and [roadmap](docs/roadmap.
 
 ## County jobs reports and job continuity companions
 
+Download the [verified timestamped report release](https://github.com/tbitcs/michigan-workforce-intelligence/releases/tag/reports-2026.09.13.231357Z): 18-page jobs/economic report, 8-page executive companion and 36-page job-continuity solutions, plus public evidence, graphs and checksums. The release workflow passed Windows, macOS and Linux launcher validation.
+
 The September 13, 2026 evidence snapshot contains **2,365 observations, 38 artifact records and 8,193 audited ledger events**. This supersedes the earlier baseline counts elsewhere in historical validation notes. The added evidence includes county/state BLS series, QCEW payroll jobs and wages, BEA regional price parities and ACS earnings/rents. Catalog entries alone do not mean their datasets have been collected.
 
 Start with the [jobs and economic analysis](reports/2026-09-13-job-continuity/jobs-context.md) and [full database reanalysis](reports/2026-09-13-job-continuity/data-reanalysis.md). The primary report covers Macomb, Oakland, Wayne and Michigan. Supplemental publications cover [job continuity](reports/2026-09-13-job-continuity/report.md), [Job Corps](reports/2026-09-13-job-continuity/job-corps.md), and [APEX, Velocity and employer advance signals](reports/2026-09-13-job-continuity/partners-and-signals.md). Candidate partners have not committed capacity or funding.
