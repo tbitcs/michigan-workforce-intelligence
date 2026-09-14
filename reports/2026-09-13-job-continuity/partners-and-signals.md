@@ -1,6 +1,6 @@
 # Candidate partners and employer advance signals
 
-This is a **supplemental implementation proposal**, not a committed partnership or operational employer exchange. It accompanies the county/state jobs report and existing Job Continuity/Job Corps analysis.
+This is a **supplemental implementation proposal**, not a committed partnership or staffed statewide program. A separate aggregate employer exchange is now deployed as a local Docker pilot. It accompanies the county/state jobs report and existing Job Continuity/Job Corps analysis.
 
 ## Candidate partner roles
 
@@ -18,7 +18,7 @@ APEX helps companies compete for contracts; it does not guarantee awards. A new 
 
 **Public evidence layer:** official aggregate indicators, source hashes, observation periods, revisions, geography definitions and published reports. This repository/MCP now provides discovery and bounded trend queries for that layer.
 
-**Confidential operational layer (proposed):** authenticated employer reports of potential reductions and hiring plans, followed by separately consented worker referrals. Do not place commercially sensitive order books or identifiable workers in public report snapshots or GitHub releases. Production multi-employer onboarding, tenant permissions and a worker case-management portal are not implemented by the report-generation pipeline.
+**Confidential operational layer (local aggregate pilot):** authenticated employer reports of potential reductions and hiring plans, followed by separately consented worker referrals. Do not place commercially sensitive order books or identifiable workers in public report snapshots or GitHub releases. The separate pilot provides operator provisioning, expiring tenant credentials, scoped signals, encryption and audited consent-attested transitions. Identifiable worker case management, public hosting and institutional commitments remain outside this release.
 
 A proposed employer signal schema includes verified employer/site ID, county, SOC/version, affected headcount range, confidence, expected date range, skills/equipment, retain/redeploy options, receiving-job demand, wages/hours/benefits offered, signal expiry, contact owner and disclosure permission. Do not include names, SSNs, health information or immigration documents in aggregate signals. Treat an employer forecast as self-reported evidence, with its own source class; never relabel it official government data.
 
@@ -35,6 +35,6 @@ Automotive downturn and expansion planning should respond to observed orders, co
 
 ## Automation roadmap
 
-The current scripted collectors, shared API quotas, audited database, MCP discovery/trends and timestamped reports form the analytical foundation. A future operational service needs employer identity checks, tenant-scoped authorization, encryption/access auditing, consent/retention rules, integrations to existing case systems, data-sharing agreements and an accountable human queue. Automate expiry checks, reminders and candidate retrieval after those controls exist; do not automatically announce layoffs, contact workers or transfer people.
+The current scripted collectors, shared API quotas, audited database, MCP discovery/trends and timestamped reports form the analytical foundation. The local aggregate service implements tenant authorization, encryption/access auditing and offer/consent checks. Before real use, establish employer identity verification, retention policies, integrations to existing case systems, data-sharing agreements and an accountable human queue. Automate expiry checks, reminders and candidate retrieval after those controls exist; do not automatically announce layoffs, contact workers or transfer people.
 
-Use a common data contract and operator-managed scheduled collection rather than every employer independently consuming public APIs with shared keys. Keep public source refresh cadence tied to release schedules and quotas. A release build packages reviewed evidence; it does not silently trigger outreach or claim the operational exchange is live.
+Use a common data contract and operator-managed scheduled collection rather than every employer independently consuming public APIs with shared keys. Keep public source refresh cadence tied to release schedules and quotas. A release build packages reviewed evidence; it does not silently trigger outreach or imply a hosted operational program is live.

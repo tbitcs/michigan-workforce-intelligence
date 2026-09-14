@@ -457,6 +457,136 @@ def generate_data(out: Path, snapshot: dict) -> tuple[str, list[Path]]:
     return "\n".join(tables), charts
 
 
+def comparison_data(out: Path, snapshot: dict) -> tuple[str, list[Path]]:
+    series = snapshot["indicators"]
+    charts = []
+    text = [
+        "# National and state benchmarks",
+        "",
+        "The U.S. benchmark is the national population-weighted statistic, not an unweighted average of state rates. Comparisons below use a shared observation month. County and state LAUS rates and national CPS rates are not seasonally adjusted; payroll series are seasonally adjusted and count jobs rather than residents.",
+        "",
+    ]
+    for label, chosen, index in [
+        (
+            "Unemployment",
+            [
+                s
+                for s in series
+                if s["metric"] == "laus.unemployment_rate"
+                and s["geography_code"] in {"26", "US", "39", "06", "48", "12"}
+            ],
+            False,
+        ),
+        ("Payroll employment", [s for s in series if s["metric"].startswith("ces.")], True),
+    ]:
+        chosen = [s for s in chosen if s["points"]]
+        common = set.intersection(
+            *[{p["date"] for p in s["points"] if p["value"] is not None} for s in chosen]
+        )
+        latest = max(common)
+        text += [
+            f"## {label}: {latest[:7]}",
+            "",
+            "| Geography | Value | Unit |",
+            "| --- | ---: | --- |",
+        ]
+        lines = []
+        for item in chosen:
+            pts = [p for p in item["points"] if p["value"] is not None]
+            value = next(p["value"] for p in pts if p["date"] == latest)
+            text.append(f"| {item['geography_name']} | {value:,.2f} | {item['unit']} |")
+            base = pts[0]["value"]
+            lines.append(
+                (
+                    item["geography_name"],
+                    [date.fromisoformat(p["date"]) for p in pts],
+                    [p["value"] / base * 100 if index else p["value"] for p in pts],
+                )
+            )
+        text += [
+            "",
+            "Source: [BLS LAUS](https://www.bls.gov/lau/), [CPS](https://www.bls.gov/cps/) and [CES](https://www.bls.gov/ces/). Series IDs, adjustments, periods and observation lineage are in the snapshot.",
+            "",
+        ]
+        charts.append(
+            chart(
+                out,
+                "benchmark-" + str(index),
+                label + ": Michigan, U.S. and comparison states",
+                "Index, first observation = 100" if index else "Percent, NSA",
+                lines,
+                "Source: BLS. National and state methods differ; compare compatible periods.",
+            )
+        )
+    hardship = json.loads(SOURCE.joinpath("underutilization.json").read_text())
+    text += [
+        "# Broader labor underutilization",
+        "",
+        hardship["period"],
+        "",
+        "| Geography | U-3 | U-6 | U-6 minus U-3 (percentage points) |",
+        "| --- | ---: | ---: | ---: |",
+    ]
+    for row in hardship["rows"]:
+        text.append(
+            f"| {row['name']} | {row['u3']}% | {row['u6']}% | {row['u6'] - row['u3']:.1f} |"
+        )
+    text += [
+        "",
+        "[BLS state alternative measures]("
+        + hardship["source_url"]
+        + "). Eleven-month averages exclude October 2025, when data were not collected. Do not compare this window directly with a single monthly rate or infer county U-6 from the state estimate. U-6 includes overlapping U-3 populations and has a broader denominator; the difference is not a count of hidden unemployed people.",
+        "",
+        "# Reference trend outlooks",
+        "",
+        "These are transparent statistical reference paths, not official forecasts or promises. A rolling one-step holdout compares persistence with damped drift. Ranges are stress scenarios, not confidence intervals. Annual, quarterly, sparse, and nonnumeric evidence does not receive a monthly forecast.",
+        "",
+        "| Series / geography | Last observation | 12-month reference | Method / status |",
+        "| --- | --- | --- | --- |",
+    ]
+    for item in series:
+        outlook = item.get("outlook", {"status": "unsupported", "reason": "Not computed"})
+        if outlook["status"] != "reference_outlook":
+            text.append(
+                f"| {item['metric']} / {item['geography_name']} | — | — | {outlook.get('reason')} |"
+            )
+            continue
+        last = outlook["last_observed"]
+        future = outlook["forecast"][-1]
+        text.append(
+            f"| {item['metric']} / {item['geography_name']} | {last['date'][:7]}: {last['value']:,.2f} | {future['date'][:7]}: {future['value']:,.2f} ({future['scenario_low']:,.2f}-{future['scenario_high']:,.2f}) {item['unit']} | {outlook['method']} |"
+        )
+        pts = [p for p in item["points"][-36:] if p["value"] is not None]
+        forecasts = outlook["forecast"]
+        lines = [
+            ("Observed", [date.fromisoformat(p["date"]) for p in pts], [p["value"] for p in pts])
+        ]
+        for field, label in [
+            ("value", "Reference"),
+            ("scenario_low", "Lower stress path"),
+            ("scenario_high", "Upper stress path"),
+        ]:
+            lines.append(
+                (
+                    label,
+                    [date.fromisoformat(last["date"])]
+                    + [date.fromisoformat(p["date"]) for p in forecasts],
+                    [last["value"]] + [p[field] for p in forecasts],
+                )
+            )
+        charts.append(
+            chart(
+                out,
+                "outlook-" + item["series_id"],
+                item["geography_name"] + ": " + item["metric"],
+                item["unit"],
+                lines,
+                "Source: BLS historical observations; project reference model. Stress ranges are not confidence intervals.",
+            )
+        )
+    return "\n".join(text), charts
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", required=True)
@@ -475,7 +605,16 @@ def main():
     def read(name):
         return SOURCE.joinpath(name + ".md").read_text(encoding="utf-8")
 
-    primary = [data, read("jobs-context"), read("data-reanalysis"), credits]
+    comparison, comparison_charts = comparison_data(out, snapshot)
+    charts += comparison_charts
+    primary = [
+        data,
+        comparison,
+        read("trends-and-hardship"),
+        read("jobs-context"),
+        read("data-reanalysis"),
+        credits,
+    ]
     solution_names = [
         "executive-brief",
         "report",
@@ -484,6 +623,7 @@ def main():
         "pilot",
         "job-corps",
         "partners-and-signals",
+        "education-candidates",
         "evidence",
     ]
     pdf(
@@ -513,6 +653,7 @@ def main():
         "interstate-prices.json",
         "interstate-earnings.json",
         "scenario-model.json",
+        "underutilization.json",
     ]:
         out.joinpath(name).write_bytes(SOURCE.joinpath(name).read_bytes())
     qa = ROOT / "tmp/pdfs" / stamp

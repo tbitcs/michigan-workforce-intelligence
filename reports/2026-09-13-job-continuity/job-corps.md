@@ -1,6 +1,6 @@
 # Job Corps: a Michigan youth-to-employment pathway
 
-Evidence reviewed September 13, 2026. This revision adds Job Corps to the broader program, alongside incumbent-worker retention and college-to-career pathways. No center partnership, admission, training seat or receiving job is confirmed.
+Evidence reviewed September 13, 2026. Job Corps is a candidate component of the broader program, alongside incumbent-worker retention and college-to-career pathways. No center partnership, admission, training seat or receiving job is confirmed.
 
 ## Verified role and eligibility
 
@@ -42,7 +42,7 @@ Create a separate 30-person annual module, conditional on center and employer ag
 
 Low/base/high planning scenarios assume 10/18/24 of the 30 achieve sustained Michigan employment after transition, compared with 8/10/12 without the enhanced local module. Incremental outcomes are 2/8/12, producing incremental-local-cash costs of $46,750/$11,687.50/$7,791.67 per additional outcome. These are unestimated assumptions; measurement starts from actual job entry and may extend beyond the pilot year. They cannot be compared directly with full Job Corps program cost-effectiveness or the incumbent pilot.
 
-## Changed recommendations and accountability
+## Program recommendations and accountability
 
 The core 200-worker retention budget remains $1,408,000 cash. Adding the separately funded 40-student module ($293,440) and 30-person Job Corps module ($93,500) yields **$1,794,940 local cash**, plus $480,000 core employer training time: **$2,274,940 in specified resources**, excluding federal Job Corps operating costs and other stated exclusions. Deduplicate anyone eligible for more than one track; do not claim 270 distinct people unless enrollment records establish that fact.
 

@@ -15,6 +15,7 @@ from mijobs.config import Settings
 from mijobs.db import make_engine, session_factory
 from mijobs.ledger import audit_evidence_coverage, verify_ledger
 from mijobs.models import Base, Observation, SourceArtifact
+from mijobs.outlook import monthly_outlook
 from mijobs.university_reports import university_report
 
 REPORT = Path("reports/2026-09-13-job-continuity")
@@ -90,6 +91,8 @@ def main() -> None:
                     ],
                 }
             )
+        for item in series:
+            item["outlook"] = monthly_outlook(item["points"], unit=item["unit"])
         universities = university_report(session, year=2024)
         # Do not export raw locators, arbitrary metadata or the database itself.
         university_summary = [
@@ -130,7 +133,7 @@ def main() -> None:
                     "margin_of_error": o.metadata_json.get("margin_of_error"),
                 }
                 for o in latest.values()
-                if o.metric.startswith(("bea.", "acs.", "qcew."))
+                if o.metric.startswith(("bea.", "acs.", "qcew.", "bls.underutilization.", "hud."))
             ],
             "artifacts": [
                 {
@@ -167,7 +170,8 @@ def main() -> None:
             "",
             "Latest versions are selected by observation key, not by month. The structured snapshot preserves every metric/geography/unit/adjustment coverage group and the configured trend series with observation/artifact IDs.",
             "",
-            "| Institution | First-major awards | Michigan retention |",
+            "All educational institutions are candidates only; data coverage does not indicate representation or participation.",
+            "| Candidate institution | First-major awards | Michigan retention |",
             "|---|---:|---|",
         ]
         text += [

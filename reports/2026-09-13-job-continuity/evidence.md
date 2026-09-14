@@ -1,10 +1,6 @@
 # Evidence appendix and database audit
 
-Review date: September 13, 2026. **Historical baseline audit**, before the county and interstate expansion: both chain and evidence-row coverage were valid with **6,520 events and 6,520 covered entities**, no uncovered rows. Baseline head:
-
-`fe6cba8841e75112756a36c46e077c74ee77ff53e0cc5295ac561a2b7408c15e`
-
-The later scripted expansion added BLS county/state indicators, QCEW, BEA prices and ACS earnings/rents. The current audited snapshot has **8,193 events, 2,365 observations and 38 artifact records**; see [full reanalysis](data-reanalysis.md) and `analysis-snapshot.json` for the current head and periods. University outcomes were not reloaded. API credentials were preserved. Integrity does not establish source accuracy, timeliness, completeness or causal validity. Reviewed narrative sources remain separate from ingested evidence.
+Evidence reviewed September 13, 2026. The current scripted read-only audit verifies 9,572 ledger events, 3,727 observation versions and 55 artifact hashes. The full [reanalysis](data-reanalysis.md) and [snapshot](analysis-snapshot.json) preserve the current head, source periods and every configured series. University outcomes were reused, not reloaded. Integrity is not statistical accuracy, freshness or causal validity.
 
 ## Stored observation coverage
 
@@ -16,9 +12,9 @@ The later scripted expansion added BLS county/state indicators, QCEW, BEA prices
 | College Scorecard | 8 observations, two measures per institution | API data-year 2020 ten-year-after-entry median earnings; API 2024 completion within 150% normal time. Different cohorts, not contemporaneous graduate outcomes |
 | Crosswalk | 5,723 CIP 2020–SOC 2018 mapping edges, separate from observations | Related pathways, not measured placements, worker availability or hiring demand |
 
-Historical baseline observations: **717** (superseded by the expanded total above). The prior live-data validation recorded **13 hash-verified raw artifacts**. The ledger also preserves challenged historical claims; read effective claim status instead of using every old report as current evidence. See [local validation](../../docs/live-data-validation.md) and the [read-only university report](../../artifacts/reports/universities.json), which is generated locally and Git-ignored.
+## Candidate institution outcome baseline
 
-## Institutional baseline
+Every educational institution is a candidate only; none is represented in or committed to this pilot. Data coverage is not an institutional relationship.
 
 | Institution / UnitID | First-major awards | Median earnings, separate entrant cohort | Completion fraction, separate cohort |
 |---|---:|---:|---:|

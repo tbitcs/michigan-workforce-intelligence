@@ -28,6 +28,34 @@ services:
       retries: 4
       start_period: 10s
 
+  exchange:
+    image: ${COMPOSE_PROJECT_NAME:-michigan-workforce-intelligence}:local
+    build:
+      context: .
+      target: runtime
+    command: [python, -m, mijobs.exchange.app]
+    environment:
+      EXCHANGE_DATABASE: /confidential/exchange.sqlite3
+      EXCHANGE_ENCRYPTION_KEY: ${EXCHANGE_ENCRYPTION_KEY:-}
+      EXCHANGE_OPERATOR_TOKEN: ${EXCHANGE_OPERATOR_TOKEN:-}
+      EXCHANGE_PORT: ${EXCHANGE_PORT:-8085}
+    volumes:
+      - confidential:/confidential
+    ports:
+      - "127.0.0.1:${EXCHANGE_PORT:-8085}:${EXCHANGE_PORT:-8085}"
+    networks: [confidential]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:' + os.getenv('EXCHANGE_PORT', '8085') + '/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+
   cli:
     <<: *runtime
     profiles: [tools]
@@ -61,7 +89,10 @@ services:
 
 volumes:
   evidence:
+  confidential:
 
 networks:
+  confidential:
+    driver: bridge
   default:
     name: ${MIJOBS_NETWORK_NAME:-michigan-workforce}

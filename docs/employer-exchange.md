@@ -1,0 +1,19 @@
+# Confidential employer exchange operations
+
+This is a local Docker pilot for aggregate employer signals in Macomb, Oakland and Wayne counties. It is separate from the public evidence MCP and never mounts the evidence volume. Nothing in the public release includes employer records.
+
+Run `python scripts/exchange.py setup` once to add missing credentials to `.env` without replacing existing API keys. Run `python scripts/exchange.py up`, `status`, `logs` or `stop` to manage Docker. The Rich manager also supports exchange start, stop and status. Visit `http://localhost:8085`; the configured port is `EXCHANGE_PORT`.
+
+The operator uses `EXCHANGE_OPERATOR_TOKEN` from the local `.env`. Verify an employer's identity before provisioning it. Deliver its expiring token through an independently approved secure channel. No invitation is automatically sent. Employer accounts can be revoked. The interface keeps tokens in memory and does not store them in browser local storage.
+
+Employers submit aggregate surplus or hiring signals with SOC, county, dates, expiration, skills, headcount, wage and hours. Sharing is opt-in on both sides. Matches require compatible county, occupation, dates and pay/hours floors. Matching is a candidate screen, not worker qualification or a job offer. A sending employer can propose a transfer only after attesting voluntary worker consent held outside this system. The receiving employer confirms start date, pay, hours and benefits; accepted capacity cannot exceed either signal. A subsequent start is employer-reported and is not an independently verified placement or a causal job saved.
+
+The authenticated `/mcp` endpoint offers three read-only tools: `exchange_signals`, `exchange_matches`, `exchange_transitions`. Configure a separate client with `Authorization: Bearer <local employer token>`; do not paste credentials into chat or public configuration. An employer sees its own records and permitted matches; the operator can inspect all pilot records. The public workforce MCP has no access to this volume.
+
+Records use Fernet authenticated encryption, hashed bearer credentials, and HMAC-linked audit events checked against record fingerprints. Host/Origin validation, request limits, a restrictive browser policy, loopback publishing, a non-root container and a separate dedicated bridge network reduce exposure. No worker identifiers, resumes or free-form worker case files are supported. The host administrator and key holder remain trusted: encryption does not protect against them. A complete rollback to a valid historical database cannot be detected without an independent checkpoint.
+
+Before any real employer use, establish retention periods, employer agreements, incident response, restore testing and an independent checkpoint policy. The pilot expires/revokes access and closes signals; it does not implement automatic legal-retention deletion or an externally anchored audit. Keep the encryption key and database backups separately protected. Stop the exchange before taking a consistent volume backup; retain the matching key securely and test restoration into an isolated volume. Do not delete the volume or replace the encryption key to troubleshoot access. Key rotation/migration is not automated.
+
+The service is not exposed to other employers over the internet. Hosted deployment requires separate authentication/identity administration, TLS, backup/recovery, capacity testing and privacy review. The user-authorized destination is local Docker only.
+
+The dedicated bridge is not an egress firewall. Docker on this host suppressed published ports on the internal-only network, so the working loopback pilot uses an ordinary dedicated bridge. The exchange has no outbound integration code or API credentials, but host-level egress controls are a separate deployment requirement.

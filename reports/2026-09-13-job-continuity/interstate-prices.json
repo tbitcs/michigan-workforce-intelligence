@@ -1,7 +1,7 @@
 {
   "source_url": "https://apps.bea.gov/regional/zip/SARPP.zip",
   "publisher": "U.S. Bureau of Economic Analysis",
-  "retrieved_at": "2026-09-13T22:34:18.943796+00:00",
+  "retrieved_at": "2026-09-13T23:43:51.063950+00:00",
   "sha256": "38713c6224c4c26ae020ffecd4549b82dca84f43d34f93dfdb43f4070cf011da",
   "definition": "Regional price parity, all items, United States=100; same-vintage historical series",
   "rows": [
@@ -58,6 +58,33 @@
       "2022": "112.591",
       "2023": "112.195",
       "2024": "110.720"
+    },
+    {
+      "GeoFIPS": " \"12000\"",
+      "GeoName": "Florida",
+      "Region": "5",
+      "TableName": "SARPP",
+      "LineCode": "1",
+      "IndustryClassification": "...",
+      "Description": "RPPs: All items ",
+      "Unit": "Index",
+      "2008": "101.668",
+      "2009": "100.491",
+      "2010": "100.392",
+      "2011": "100.846",
+      "2012": "101.072",
+      "2013": "100.742",
+      "2014": "100.894",
+      "2015": "101.290",
+      "2016": "101.087",
+      "2017": "100.871",
+      "2018": "100.318",
+      "2019": "99.645",
+      "2020": "100.604",
+      "2021": "101.389",
+      "2022": "102.284",
+      "2023": "103.636",
+      "2024": "103.414"
     },
     {
       "GeoFIPS": " \"17000\"",

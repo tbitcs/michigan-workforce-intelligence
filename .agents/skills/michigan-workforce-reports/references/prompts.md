@@ -56,8 +56,16 @@ Produce a jobs and economic report for Macomb, Oakland, Wayne and Michigan. Audi
 
 ## Interstate talent attraction
 
-Compare Michigan with Ohio, Indiana, Illinois, Wisconsin, North Carolina, Texas and California using same-year earnings, regional price parities and housing data. Include uncertainty and historical trends. Separate occupation-specific offers from population median earnings, and price levels from inflation. Identify household costs still needed before recommending relocation; do not promise a wage or purchasing-power gain.
+Compare Michigan with the U.S., Ohio, Indiana, Illinois, Wisconsin, North Carolina, Texas, Florida and California using same-year earnings, regional price parities and housing data. Include uncertainty and historical trends. Separate occupation-specific offers from population median earnings, and price levels from inflation. Identify household costs still needed before recommending relocation; do not promise a wage or purchasing-power gain.
 
 ## Partner-led automotive continuity pilot
 
 Design a Macomb/Oakland/Wayne pilot with APEX Accelerators, Velocity, Michigan Works!, MMTC, colleges and Job Corps as candidate partners. Verify roles and intake geography, identify unknown capacity and funding, and propose voluntary employer advance downsizing/hiring signals. Show retention, paid redeployment and confirmed external offers before separation. Test cyclical hypotheses against evidence; do not assume an 11-year automotive cycle. Separate the public analytical database from confidential employer/worker operations that require consent and access controls.
+
+## Candidate education network
+
+Identify candidate educational institutions for Macomb, Oakland, Wayne and statewide engineering/manufacturing/aerospace pathways. Use official program sources and explain geographic and work-based learning fit. Label every institution candidate only; none is represented or committed. Separate stored outcome coverage from seats, costs, funding, offers and participation.
+
+## Broader hardship and outlook
+
+Compare county/Michigan/U.S./key-state trends with U-3, U-6, participation, involuntary part-time work and housing instability. Do not add overlapping populations or assume official unemployment is false. Explain sampling/definition gaps, input periods and missing county evidence. Show supported monthly reference outlooks, holdout error and stress ranges; separate speculative drivers and sentiment from observed results.

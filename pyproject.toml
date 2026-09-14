@@ -15,6 +15,9 @@ dependencies = [
   "typer>=0.12,<1",
   "rich>=14,<15",
   "python-dotenv>=1,<2",
+  "cryptography>=50.0.1,<51",
+  "starlette>=0.52,<2",
+  "uvicorn>=0.40,<1",
 ]
 
 [project.optional-dependencies]

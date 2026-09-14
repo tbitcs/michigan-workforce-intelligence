@@ -31,7 +31,7 @@ Use this official Reserve source for the current sentiment discussion. Universit
 
 ## Interstate purchasing power and talent attraction
 
-The companion charts compare Michigan with California, Texas, North Carolina, Ohio, Indiana, Illinois and Wisconsin. BEA's latest reviewed price-parity release describes 2024 and revises historical estimates; ACS earnings/rent comparisons use 2024 one-year data to match. The historical price series is from one current vintage, not an unreconciled splice of old news releases. [BEA RPP](https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area), [ACS](https://www.census.gov/programs-surveys/acs).
+The companion charts compare Michigan with California, Texas, Florida, the U.S., North Carolina, Ohio, Indiana, Illinois and Wisconsin. BEA's latest reviewed price-parity release describes 2024 and revises historical estimates; ACS earnings/rent comparisons use 2024 one-year data to match. The historical price series is from one current vintage, not an unreconciled splice of old news releases. [BEA RPP](https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area), [ACS](https://www.census.gov/programs-surveys/acs).
 
 The calculation **median earnings / (RPP / 100)** is a purchasing-power screening benchmark. Median earnings include workers with different hours and occupations; it is not a wage offer, household disposable income or causal relocation gain. ACS margins of error are retained in the data; do not overinterpret small differences. RPP itself reflects a regional consumption basket, not a particular family's spending. A lower price level can coexist with lower wages.
 

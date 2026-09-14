@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import os
 import re
 import subprocess
@@ -72,6 +74,7 @@ def main() -> None:
             "collect-qcew",
             "collect-reference",
             "collect-comparisons",
+            "collect-hardship",
             "analyze",
             "build",
             "release",
@@ -79,6 +82,10 @@ def main() -> None:
         ],
     )
     parser.add_argument("--version", default=os.getenv("REPORT_VERSION"))
+    parser.add_argument(
+        "--replace-release",
+        help="Explicit old reports-timestamp release to delete after validating the replacement package; preserves its Git tag",
+    )
     args = parser.parse_args()
     if args.command == "build-image":
         run(["docker", "build", "--target", "reports", "--tag", IMAGE, "."])
@@ -89,6 +96,7 @@ def main() -> None:
             "collect-qcew": "collect_qcew.py",
             "collect-reference": "collect_reference_data.py",
             "collect-comparisons": "collect_comparisons.py",
+            "collect-hardship": "collect_hardship.py",
         }
         run(container("scripts/" + scripts[args.command], evidence=True, write=True))
     elif args.command == "analyze":
@@ -99,6 +107,38 @@ def main() -> None:
         stamp = version(args.version)
         if subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True).strip():
             raise SystemExit("Commit reviewed sources before releasing")
+        if args.replace_release:
+            old = args.replace_release
+            if not old.startswith("reports-") or old == "reports-" + stamp:
+                raise SystemExit("Expected a different reports-timestamp release")
+            version(old.removeprefix("reports-"))
+            directory = ROOT / "output/pdf" / stamp
+            manifest = json.loads((directory / "manifest.json").read_text())
+            head = subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+            ).strip()
+            if manifest["version"] != stamp or manifest["source_commit"] != head:
+                raise SystemExit("Build the replacement from the current clean commit first")
+            required = {
+                "executive-brief.pdf",
+                "jobs-economic-report.pdf",
+                "job-continuity-solutions.pdf",
+                "manifest.json",
+                f"reports-{stamp}.zip",
+            }
+            checked = set()
+            for line in (directory / "SHA256SUMS.txt").read_text().splitlines():
+                digest, name = line.split("  ", 1)
+                if (
+                    Path(name).name != name
+                    or hashlib.sha256((directory / name).read_bytes()).hexdigest() != digest
+                ):
+                    raise SystemExit("Replacement checksum verification failed")
+                checked.add(name)
+            if not required <= checked:
+                raise SystemExit("Replacement package is incomplete")
+            run(["gh", "release", "view", old, "--json", "tagName"])
+            run(["gh", "release", "delete", old, "--yes"])
         run(["gh", "workflow", "run", "reports-release.yml", "-f", f"version={stamp}"])
         print(f"Requested reports-{stamp}. Use gh run list --workflow reports-release.yml")
     else:

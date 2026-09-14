@@ -20,10 +20,14 @@ The configured service is `michigan_workforce`; its tool prefix varies by client
 | scorecard.earnings.10_years_after_entry.median | UnitID | Federal-aid entrant cohort, working/not enrolled; not graduate salary or Michigan retention. Read api_field/data_year metadata |
 | scorecard.completion.4yr_150pct | UnitID | Fraction, not percent. First-time full-time completion within 150% normal time |
 
-Institutions: Lawrence Technological 170675; Rochester Christian 170967; Oakland 171571; Kettering 169983. Curated registry membership does not establish an institutional partnership.
+Candidate institutions only: Lawrence Technological 170675; Rochester Christian 170967; Oakland 171571; Kettering 169983. Curated registry membership does not establish an institutional partnership.
 
 The 2026-09-13 baseline includes 2024 IPEDS, Scorecard API data-year 2020 earnings and 2024 completion, official crosswalks, recent national CPS and historical Michigan QWI. Never use this note as a current coverage assertion.
 
 `gap_training_pipeline` requires matching geography, annual basis, SOC/version/code and `people_per_year`; IPEDS awards require justified transformations before use. Other university/policy calculators consume supplied inputs, do not fetch or authenticate data, and are exploratory. University aggregate demand can double-count overlapping occupations. Retention's simplified formula does not use in_state_job_match_rate. Prefer explicit, independently checked scenario arithmetic for consequential program designs.
 
 When working in the repository, Docker `cli report-universities --year 2024` is read-only; `cli report` appends derived records and claims, and `harvest*` writes evidence. Do not run a write command merely to answer a read-only question. Credentials stay in .env and out of reports.
+
+The economic registry includes county/state BLS series, national benchmarks, Ohio/California/Texas/Florida comparisons and national U-6/participation/employment-population/involuntary-part-time series. The BLS state underutilization table uses `bls.underutilization.u1` through `.u6`, an 11-month window excluding October 2025; it is not county evidence. Monthly `economic_trend` output includes a reference outlook only when coverage and compatibility checks pass. Its stress ranges are not confidence intervals.
+
+`partner_institutions_list` returns four data-covered candidates plus a separate additional-candidate research catalog. No institution is represented or committed. Homelessness figures in the narrative are outside the database unless a query establishes later ingestion. The separate authenticated employer exchange cannot be queried through the public evidence tools.

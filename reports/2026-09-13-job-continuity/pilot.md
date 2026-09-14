@@ -55,7 +55,7 @@ docker compose run --rm -T --volume "${PWD}:/workspace" --entrypoint python cli 
 
 ## Staffing and responsibilities
 
-The [Job Corps revision](job-corps.md) adds a conditional 30-person youth transition module, 0.5 FTE and $93,500 incremental local cash. Together with the student option, total specified local cash becomes $1,794,940; including core employer training time gives $2,274,940, excluding federal center operating costs. Its youth scenarios and longer follow-up are separate from the core table above. During days 1–30 confirm center/arrival status; days 31–60 plan near-completer transitions; days 61–90 verify actual offers/starts and separately report new trainees' progress.
+The [Job Corps module](job-corps.md) adds a conditional 30-person youth transition module, 0.5 FTE and $93,500 incremental local cash. Together with the student option, total specified local cash becomes $1,794,940; including core employer training time gives $2,274,940, excluding federal center operating costs. Its youth scenarios and longer follow-up are separate from the core table above. During days 1–30 confirm center/arrival status; days 31–60 plan near-completer transitions; days 61–90 verify actual offers/starts and separately report new trainees' progress.
 
 **Proposal:** one program/employer lead, two navigators and one fiscal/data coordinator constitute the four FTE. Independent evaluation/legal expertise comes from the contract allowance. Local agencies determine program eligibility; they are not assumed to supply free unlimited casework. Seek a written service agreement and budget any additional work before assigning it.
 

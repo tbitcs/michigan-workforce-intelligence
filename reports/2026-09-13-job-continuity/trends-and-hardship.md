@@ -1,0 +1,37 @@
+# Trends, explanations and hardship beyond the headline rate
+
+## Observed labor-market evidence
+
+The benchmark dashboard compares Macomb, Oakland, Wayne and Michigan with the U.S. and Ohio, California, Texas and Florida. National statistics are population-based benchmarks, not an unweighted state average. BEA price and ACS earnings comparisons also include Indiana, Illinois, Wisconsin and North Carolina. Interpret price-adjusted earnings as a screening measure; differences in household composition, taxes, housing, transport, healthcare and occupation mix can change a specific relocation decision.
+
+Unemployment is a defined survey measure, not a count of everyone facing economic hardship. U-3 generally counts people without a job who are available and actively seeking work, plus qualifying temporary layoffs. U-6 includes additional marginal attachment and involuntary part-time work. Participation and the employment-to-population ratio provide context for people outside the labor force. Neither measure identifies every person whose skills or desired earnings are underused. Do not presume U-3 is fabricated, treat benefit claims as the entire unemployed population, or add overlapping populations. [BLS definitions](https://www.bls.gov/cps/definitions.htm).
+
+The stored state underutilization table reports Michigan U-3 at 5.0% and U-6 at 9.1%, compared with 4.4% and 8.2% nationally, for the July 2025–June 2026 window excluding October 2025. These are 11-month averages, not the latest monthly rate. California's U-6 is 10.3%, Florida's 8.7%, Texas's 8.3%, and Ohio's 7.2% in that same table. The state estimates do not establish county rates or a number of additional unemployed workers. [BLS state table](https://www.bls.gov/lau/stalt26q2.htm).
+
+## Housing instability and incomplete coverage
+
+Michigan's 2024 annual homelessness report lists 31,211 unique clients in its HMIS demographic table, versus 33,174 in the comparable 2023 table. A separate historical chart gives 33,226 for 2023; preserve this discrepancy rather than silently choosing a single series for forecasting. The report's overall average homelessness duration rises from 80 to 89 days. These are service-system measures, not unemployment counts or a census of everyone without stable housing. The report also identifies Lighthouse of Oakland County and Wayne Metro as 2024 youth-system grant coordinating entities; that historical award does not establish current funds or participation in this pilot. [Michigan annual report, pages 3, 4, 8–9](https://www.michigan.gov/mcteh/-/media/Project/Websites/mcteh/Annual-Reports/2024-Homelessness-Annual-Report.pdf).
+
+HUD's 2025 national announcement reports 745,652 people homeless on a January night, including 266,320 unsheltered people. Point-in-time and annual HMIS measures have different periods and coverage; do not compare their levels or add them. The announcement's policy explanations are publisher interpretations, not causal findings adopted by this analysis. [HUD release](https://www.hud.gov/news/hud-no-26-037).
+
+**Missing evidence:** these homelessness findings are official-source desk research, not ingested database observations. The attempted HUD bulk/PDF retrieval did not return usable data. No verified current county homelessness series, discouraged-worker county series, or count of all untracked unemployment is available in this release. A missing estimate is not zero. Prioritize licensed/public aggregate CoC data with geography reconciliation, Census housing cost-burden data, eviction filings, school homelessness measures, transportation access and childcare availability. Keep different definitions separate and never publish identifiable household records.
+
+## Reference outlooks and their limits
+
+Each configured monthly series has either a 12-month reference outlook or a reason it cannot support one. The script requires at least 36 observations and reasonably dense recent coverage. It compares a constant last-value baseline with damped drift estimated from up to 25 prior observations. A rolling 12-observation holdout reports one-step mean absolute error. Calendar gaps remain gaps. The better holdout method produces the reference path; using the same holdout for selection and error estimation can make performance appear optimistic.
+
+Stress ranges use the largest holdout absolute error multiplied by the square root of the forecast horizon, bounded at zero and at 100 for percentages. They are not calibrated confidence intervals, recession probabilities, official forecasts or validated 12-month accuracy claims. Seasonal effects, population-control changes, policy shocks and structural breaks can invalidate extrapolation. See [CPS technical documentation](https://www.bls.gov/cps/documentation.htm). No quantitative forecast is supplied for one-vintage QCEW/ACS evidence, the single state underutilization table, missing sentiment observations or inconsistent homelessness histories. BEA price history remains descriptive; an individualized relocation scenario is more defensible than promising future savings.
+
+## Proposed early-warning interpretation
+
+| Signal | Plausible explanation to investigate | Required corroboration and response |
+| --- | --- | --- |
+| Falling payroll and hours, rising unemployment | Demand slowdown, seasonal disruption or production change | Check revisions, plant-level voluntary notices, receiving requisitions and recall plans before escalation. |
+| Stable unemployment but lower participation or more involuntary part-time work | Withdrawal, hours constraints, care responsibilities or weak hiring | Review age composition, worker preferences and support needs; do not assume every nonparticipant wants a job. |
+| Higher nominal wages with higher living costs | Inflation erodes gains or local shortages increase pay | Compare same-period real earnings, actual offers and household costs. |
+| Negative sentiment without observed job losses | Expectations may precede hiring restraint, or may not translate into action | Use dated Federal Reserve qualitative reports and licensed survey evidence separately from payroll outcomes; require observed corroboration. |
+| Rising housing instability with placement churn | Housing, transport, health or income shocks may undermine retention | Offer voluntary support referrals and measure retention; do not infer causation from correlation. |
+
+**Speculation:** automotive demand, retooling, financing costs, trade policy and defense procurement timing can affect employer needs. A fixed 11-year automotive job-loss cycle is not established by this dataset. **Proposal:** trigger a confidential human review when two independent indicators deteriorate or an employer voluntarily reports a credible prospective surplus. Retention and internal redeployment come first, then a voluntary employer transfer with an offer, start date, pay, hours and benefits confirmed. Track false alarms, missed events and actual lead time before treating any trigger as predictive.
+
+Sentiment is contextual evidence, not a forecast input in the current model. No current sentiment index is ingested or projected. Housing support, Job Corps, APEX Accelerators, Velocity and every educational institution remain candidate components requiring separate eligibility and capacity confirmation. The local exchange accepts aggregate employer signals; it does not turn a macroeconomic forecast into a worker-level decision or prove that jobs were saved.

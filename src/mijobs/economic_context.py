@@ -8,6 +8,7 @@ from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, aliased
 
 from mijobs.models import Observation
+from mijobs.outlook import monthly_outlook
 
 
 def economic_series(
@@ -35,7 +36,22 @@ def economic_series(
         .limit(limit + 1)
     )
     rows = list(session.scalars(query))
+    outlook = {"status": "unsupported", "reason": "Monthly compatible series required"}
+    selected = rows[:limit]
+    if (
+        selected
+        and all(o.period_basis == "monthly" for o in selected)
+        and len({(o.unit, o.adjustment, o.metric) for o in selected}) == 1
+    ):
+        outlook = monthly_outlook(
+            [
+                {"date": str(o.period_start), "value": o.numeric_value, "observation_id": o.id}
+                for o in selected
+            ],
+            unit=selected[0].unit,
+        )
     return {
+        "outlook": outlook,
         "geography_code": geography_code,
         "metric": metric,
         "status": "available" if rows else "missing",
@@ -57,7 +73,7 @@ def economic_series(
         ],
         "limitations": [
             "Do not mix seasonal adjustments, units or periods.",
-            "Missing values are not zero; no forecast or causal layoff prediction is calculated.",
+            "Missing values are not zero; reference outlooks are statistical scenarios, not causal layoff predictions.",
         ],
     }
 

@@ -37,6 +37,7 @@ def main() -> None:
                 "Wisconsin",
                 "California",
                 "Texas",
+                "Florida",
                 "North Carolina",
                 "United States",
             } and (row.get("LineCode") or "").strip() == "1":

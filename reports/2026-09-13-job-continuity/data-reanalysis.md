@@ -1,25 +1,26 @@
 # Scripted full-store reanalysis
 
-Analyzed 2026-09-13T22:39:52.295185+00:00. Read-only; no harvest or database initialization in this script.
+Analyzed 2026-09-14T00:00:26.135103+00:00. Read-only; no harvest or database initialization in this script.
 
-Ledger valid: True; events: 8193; raw artifact hashes verified: 38.
+Ledger valid: True; events: 9572; raw artifact hashes verified: 55.
 
-Ledger head: `5f497be877b7ccff65e1da4bd1b4b4f8351bbdb3a1b30e5304c5251b3caac692`
+Ledger head: `c2fc094f431d0a476dc171fc87287ab0ebeac5ac979000297e721f0ce439c809`
 
 | Evidence table | All versions |
 |---|---:|
-| source_artifacts | 38 |
-| observations | 2365 |
+| source_artifacts | 55 |
+| observations | 3727 |
 | claims | 19 |
 | evidence_edges | 19 |
 | challenges | 10 |
 | derived_metrics | 19 |
 | taxonomy_mappings | 5723 |
-| ledger_events | 8193 |
+| ledger_events | 9572 |
 
 Latest versions are selected by observation key, not by month. The structured snapshot preserves every metric/geography/unit/adjustment coverage group and the configured trend series with observation/artifact IDs.
 
-| Institution | First-major awards | Michigan retention |
+All educational institutions are candidates only; data coverage does not indicate representation or participation.
+| Candidate institution | First-major awards | Michigan retention |
 |---|---:|---|
 | Lawrence Technological University | 652.0 | not_available |
 | Rochester Christian University | 196.0 | not_available |

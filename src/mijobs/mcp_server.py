@@ -190,7 +190,7 @@ def build_server() -> Any:
 
     @mcp.tool(annotations=read_only)
     def partner_institutions_list() -> dict[str, Any]:
-        """List all registered partner institutions with their focus areas and metadata."""
+        """List all registered candidate institutions with their focus areas and metadata."""
         return call(lambda service: service.partner_institutions_list())
 
     @mcp.tool(annotations=read_only)

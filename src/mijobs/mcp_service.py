@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import json
 from dataclasses import asdict
 from decimal import Decimal
+from pathlib import Path
 from typing import Any
 
 from sqlalchemy import select
@@ -237,7 +239,11 @@ class MCPService:
     def ledger_audit(self) -> dict[str, Any]:
         chain = verify_ledger(self.session)
         coverage = audit_evidence_coverage(self.session)
-        return {"chain": asdict(chain), "coverage": asdict(coverage), "valid": chain.valid and coverage.valid}
+        return {
+            "chain": asdict(chain),
+            "coverage": asdict(coverage),
+            "valid": chain.valid and coverage.valid,
+        }
 
     def gap_training_pipeline(self, payload: dict[str, Any]) -> dict[str, Any]:
         def metric(name: str) -> ComparableMetric | None:
@@ -292,10 +298,10 @@ class MCPService:
         return _jsonable_dict(asdict(result))
 
     def university_degree_relevance(self, payload: dict[str, Any]) -> dict[str, Any]:
-        """Match a partner institution's CIP completions to in-demand SOC occupations.
+        """Match a candidate institution's CIP completions to in-demand SOC occupations.
 
         Required payload keys:
-          - institution_unitid: IPEDS UnitID of the partner institution
+          - institution_unitid: IPEDS UnitID of the candidate institution
           - completions: list of {cip_code, annual_completions, cip_version?}
           - demand: list of {soc_code, annual_openings, soc_version?, median_wage?}
           - crosswalk: list of {from_code, to_code, from_version?, to_version?, relation?}
@@ -305,7 +311,9 @@ class MCPService:
             raise ValueError("institution_unitid is required")
         institution = get_partner_institution(unitid)
         if institution is None:
-            raise ValueError(f"institution_unitid {unitid!r} is not a registered partner institution")
+            raise ValueError(
+                f"institution_unitid {unitid!r} is not a registered candidate institution"
+            )
 
         completions_raw = payload.get("completions", [])
         if not completions_raw:
@@ -348,7 +356,7 @@ class MCPService:
         return _jsonable_dict(asdict(result))
 
     def university_pipeline_balance(self, payload: dict[str, Any]) -> dict[str, Any]:
-        """Compute net pipeline surplus/deficit for a partner institution.
+        """Compute net pipeline surplus/deficit for a candidate institution.
 
         Same payload structure as university_degree_relevance.
         """
@@ -357,7 +365,9 @@ class MCPService:
             raise ValueError("institution_unitid is required")
         institution = get_partner_institution(unitid)
         if institution is None:
-            raise ValueError(f"institution_unitid {unitid!r} is not a registered partner institution")
+            raise ValueError(
+                f"institution_unitid {unitid!r} is not a registered candidate institution"
+            )
 
         completions_raw = payload.get("completions", [])
         if not completions_raw:
@@ -399,7 +409,7 @@ class MCPService:
         return _jsonable_dict(asdict(result))
 
     def university_retention_risk(self, payload: dict[str, Any]) -> dict[str, Any]:
-        """Estimate graduate retention risk for a partner institution.
+        """Estimate graduate retention risk for a candidate institution.
 
         Required payload keys:
           - institution_unitid: IPEDS UnitID
@@ -413,7 +423,9 @@ class MCPService:
             raise ValueError("institution_unitid is required")
         institution = get_partner_institution(unitid)
         if institution is None:
-            raise ValueError(f"institution_unitid {unitid!r} is not a registered partner institution")
+            raise ValueError(
+                f"institution_unitid {unitid!r} is not a registered candidate institution"
+            )
 
         inputs = RetentionRiskInput(
             annual_graduates=Decimal(str(payload["annual_graduates"])),
@@ -450,14 +462,18 @@ class MCPService:
             projected_establishments_5yr=Decimal(str(payload["projected_establishments_5yr"])),
             current_employment=Decimal(str(payload["current_employment"])),
             projected_employment_5yr=Decimal(str(payload["projected_employment_5yr"])),
-            median_wage_target=Decimal(str(payload["median_wage_target"])) if payload.get("median_wage_target") else None,
-            median_wage_michigan=Decimal(str(payload["median_wage_michigan"])) if payload.get("median_wage_michigan") else None,
+            median_wage_target=Decimal(str(payload["median_wage_target"]))
+            if payload.get("median_wage_target")
+            else None,
+            median_wage_michigan=Decimal(str(payload["median_wage_michigan"]))
+            if payload.get("median_wage_michigan")
+            else None,
         )
         result = business_attraction_signal(inputs=inputs)
         return _jsonable_dict(asdict(result))
 
     def university_summary(self, payload: dict[str, Any] | None = None) -> dict[str, Any]:
-        """Aggregate workforce pipeline summary across all partner institutions.
+        """Aggregate workforce pipeline summary across all candidate institutions.
 
         Optional payload keys:
           - pipeline_results: list of results from university_pipeline_balance
@@ -511,11 +527,20 @@ class MCPService:
         return _jsonable_dict(asdict(result))
 
     def partner_institutions_list(self) -> dict[str, Any]:
-        """List all registered partner institutions with their focus areas."""
+        """List all registered candidate institutions with their focus areas."""
         return {
             "count": len(PARTNER_INSTITUTIONS),
+            "relationship_status": "candidate",
+            "additional_candidates": json.loads(
+                Path("config/education-candidates.json").read_text(encoding="utf-8")
+            ),
+            "participation_confirmed": False,
+            "limitations": [
+                "All institutions are candidates only. Stored outcomes do not establish representation, commitment, capacity, or available workers."
+            ],
             "institutions": [
                 {
+                    "relationship_status": inst.relationship_status,
                     "unitid": inst.unitid,
                     "name": inst.name,
                     "city": inst.city,
@@ -542,7 +567,9 @@ class MCPService:
         evidence_refs: list[dict[str, str]] | None = None,
     ) -> dict[str, Any]:
         if not self.write_enabled:
-            raise PermissionError("MCP writes are disabled; set MIJOBS_MCP_WRITE_ENABLED=true explicitly")
+            raise PermissionError(
+                "MCP writes are disabled; set MIJOBS_MCP_WRITE_ENABLED=true explicitly"
+            )
         challenge = EvidenceRepository(self.session, actor="mcp").add_challenge(
             claim_id=claim_id,
             rationale=rationale,
@@ -577,7 +604,9 @@ class MCPService:
             "geography_type": observation.geography_type,
             "geography_code": observation.geography_code,
             "geography_name": observation.geography_name,
-            "period_start": observation.period_start.isoformat() if observation.period_start else None,
+            "period_start": observation.period_start.isoformat()
+            if observation.period_start
+            else None,
             "period_end": observation.period_end.isoformat() if observation.period_end else None,
             "period_basis": observation.period_basis,
             "taxonomy_system": observation.taxonomy_system,

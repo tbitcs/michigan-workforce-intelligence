@@ -1,4 +1,7 @@
 import importlib.util
+import hashlib
+import json
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -37,6 +40,60 @@ class PortableReports(unittest.TestCase):
         with patch.object(reports.subprocess, "run", side_effect=RuntimeError("failed")):
             with self.assertRaises(RuntimeError):
                 reports.run(["docker", "info"])
+
+
+class ReplacementRelease(unittest.TestCase):
+    def test_corrupt_package_never_deletes_release(self):
+        self.run_replacement(corrupt=True)
+
+    def test_valid_package_deletes_old_release_before_dispatch(self):
+        self.run_replacement(corrupt=False)
+
+    def run_replacement(self, corrupt):
+        stamp = "2026.09.14.010000Z"
+        old = "reports-2026.09.13.231357Z"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            out = root / "output/pdf" / stamp
+            out.mkdir(parents=True)
+            for name in [
+                "executive-brief.pdf",
+                "jobs-economic-report.pdf",
+                "job-continuity-solutions.pdf",
+                f"reports-{stamp}.zip",
+            ]:
+                (out / name).write_bytes(b"synthetic-package-test")
+            (out / "manifest.json").write_text(
+                json.dumps({"version": stamp, "source_commit": "head"})
+            )
+            (out / "SHA256SUMS.txt").write_text(
+                "\n".join(
+                    hashlib.sha256(p.read_bytes()).hexdigest() + "  " + p.name
+                    for p in out.iterdir()
+                    if p.name != "SHA256SUMS.txt"
+                )
+            )
+            if corrupt:
+                (out / "executive-brief.pdf").write_bytes(b"changed")
+            with (
+                patch.object(reports, "ROOT", root),
+                patch.object(reports.subprocess, "check_output", side_effect=["", "head"]),
+                patch.object(reports, "run") as run,
+                patch(
+                    "sys.argv",
+                    ["reports.py", "release", "--version", stamp, "--replace-release", old],
+                ),
+            ):
+                if corrupt:
+                    with self.assertRaises(SystemExit):
+                        reports.main()
+                    run.assert_not_called()
+                else:
+                    reports.main()
+                    self.assertEqual(
+                        run.call_args_list[-2].args[0], ["gh", "release", "delete", old, "--yes"]
+                    )
+                    self.assertEqual(run.call_args_list[-1].args[0][:3], ["gh", "workflow", "run"])
 
 
 if __name__ == "__main__":

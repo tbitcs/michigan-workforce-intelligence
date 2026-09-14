@@ -121,7 +121,7 @@ class RetentionRiskInput:
 
 @dataclass(frozen=True, slots=True)
 class RetentionRiskResult:
-    """Estimated graduate retention for a partner institution."""
+    """Estimated graduate retention for a candidate institution."""
 
     formula_version: str
     institution_unitid: str
@@ -165,7 +165,7 @@ class BusinessAttractionResult:
 
 @dataclass(frozen=True, slots=True)
 class UniversityWorkforceSummary:
-    """Aggregate summary across all partner institutions."""
+    """Aggregate summary across all candidate institutions."""
 
     formula_version: str
     total_partner_institutions: int
@@ -498,7 +498,7 @@ def university_workforce_summary(
     pipeline_results: list[UniversityPipelineResult],
     retention_results: list[RetentionRiskResult] | None = None,
 ) -> UniversityWorkforceSummary:
-    """Aggregate summary across all partner institutions."""
+    """Aggregate summary across all candidate institutions."""
     if not pipeline_results:
         raise ValueError("at least one pipeline result is required")
 
@@ -536,7 +536,7 @@ def university_workforce_summary(
         top_deficit_occupations=top_deficits,
         top_surplus_occupations=top_surpluses,
         caveats=(
-            "Summary aggregates partner institutions only; does not represent all Michigan postsecondary supply.",
+            "Summary aggregates candidate institutions only; does not represent all Michigan postsecondary supply.",
             "Pipeline balance is a narrow comparison, not a labor market forecast.",
             "Retention data is optional; absence is reported, not imputed.",
             "Top deficit/surplus lists are by institution, not by occupation (occupation-level detail in individual results).",

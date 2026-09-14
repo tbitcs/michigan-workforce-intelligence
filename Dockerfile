@@ -14,7 +14,7 @@ COPY config ./config
 COPY deploy ./deploy
 COPY README.md ./
 RUN uv sync --frozen --no-dev --extra mcp && useradd --uid 10001 --create-home mijobs \
-    && mkdir -p /data/artifacts && chown -R mijobs:mijobs /data
+    && mkdir -p /data/artifacts /confidential && chown -R mijobs:mijobs /data /confidential
 USER mijobs
 CMD ["python", "-c", "from mijobs.mcp_server import serve_http; serve_http()"]
 

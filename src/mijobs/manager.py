@@ -28,8 +28,11 @@ ACTIONS = {
     '8': ('ci', 'Run strict quality checks'),
     '9': ('config', 'Configuration overview'),
     'r': ('status', 'Refresh status'),
+    'e': ('exchange-start', 'Start / apply confidential exchange'),
+    'x': ('exchange-stop', 'Stop confidential exchange'),
+    's': ('exchange-status', 'Confidential exchange status'),
 }
-CREDENTIALS = ('BLS_API_KEY', 'CENSUS_API_KEY', 'ONET_USERNAME', 'ONET_PASSWORD')
+CREDENTIALS = ('BLS_API_KEY', 'CENSUS_API_KEY', 'ONET_USERNAME', 'ONET_PASSWORD', 'EXCHANGE_OPERATOR_TOKEN', 'EXCHANGE_ENCRYPTION_KEY')
 
 
 @dataclass(frozen=True)
@@ -84,6 +87,9 @@ class Manager:
             lines.append('Database URL and credential values are hidden.')
             return Result(0, '\n'.join(lines))
         routes = {
+            'exchange-start': ['up', '-d', '--build', '--wait', '--wait-timeout', '60', 'exchange'],
+            'exchange-stop': ['stop', 'exchange'],
+            'exchange-status': ['ps', '--all', '--format', 'json', 'exchange'],
             'status': ['ps', '--all', '--format', 'json', 'app'],
             'start': ['up', '-d', '--build', '--wait', '--wait-timeout', '60', 'app'],
             'stop': ['stop', 'app'],
@@ -99,7 +105,7 @@ class Manager:
             return self._run(['run', '--build', '--rm', '--no-deps', '-T', 'cli', action])
         if action not in routes:
             return Result(2, f'Unknown action: {action}')
-        return self._run(routes[action], timeout=900 if action in ('ci', 'start') else 120)
+        return self._run(routes[action], timeout=900 if action in ('ci', 'start', 'exchange-start') else 120)
 
 
 def render_status(console: Console, result: Result) -> None:

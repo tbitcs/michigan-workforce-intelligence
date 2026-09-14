@@ -1,29 +1,11 @@
-# ChatGPT desktop connection and readiness
+# Local MCP connections
 
-The local MCP server is registered as `michigan_workforce` at `http://127.0.0.1:8000/mcp` in the desktop host's shared MCP configuration. Docker must be running and the app service healthy. No public endpoint, tunnel, cloud deployment or new API key is needed for this local connection.
+The existing desktop connection is named `michigan_workforce` and uses `http://127.0.0.1:8000/mcp`. Start the Docker `app` service and verify its protocol health before using it. A browser GET is not an MCP initialization request. The native client uses Streamable HTTP; a separate agent container on the shared network uses `http://workforce-mcp:8000/mcp`.
 
-In ChatGPT desktop, open Settings → Plugins → MCPs and restart the connection if it is not already active. Start a new local conversation and select/use `michigan_workforce`. ChatGPT desktop, Codex CLI and IDE use the same host configuration; ChatGPT web does not read it. If you change MIJOBS_MCP_PORT in .env, update the client URL to match.
+Ask: “Use michigan_workforce to audit the ledger, show compatible county/state trends, and explain missing evidence.” The public service exposes 22 tools, with writes disabled by default. It provides evidence reads, lineage, candidate institution context, deterministic calculations and monthly reference outlooks. It does not harvest arbitrary live websites or access confidential employer records. Refresh the client connection after server updates if it has cached schemas.
 
-Try:
+The [reporting skill](../.agents/skills/michigan-workforce-reports/SKILL.md) translates ordinary questions into evidence queries and current-source research. A client needs its own supported MCP configuration; this local configuration is not a ChatGPT web deployment or a public hosted connector. No tunnel is required for the local desktop setup.
 
-> Use michigan_workforce to list the reviewed source families and audit the ledger. Tell me whether any evidence has actually been ingested.
+The separate local employer exchange offers an authenticated MCP endpoint on `http://127.0.0.1:8085/mcp`. Configure it separately with the intended employer's bearer credential through the client's secure credential configuration. Its three tools read scoped signals, candidate matches and transitions. Do not put credentials in prompts, repository files or public report assets. It is not automatically registered by adding the public evidence connection.
 
-Or, once evidence is ingested:
-
-> Search Michigan observations for the requested metric, report the source and observation periods, and explain any missing evidence. Do not treat the source registry as data.
-
-## What is complete
-Docker Compose runtime, single .env setup, persistent storage, Rich manager, deterministic evidence core, 20 MCP tools, local strict CI, separate-agent network, and optional Kubernetes manifest generation.
-
-## What is not complete
-The populated store verified on 2026-09-13 contains 248 observations from 9 raw artifacts: U.S. BLS data through August 2026 and historical Michigan QWI data through 2021 Q4. See the [README coverage and query guide](../README.md#data-coverage-and-readiness). University academic awards, official crosswalks and Scorecard outcomes are now supported by `harvest-universities`; see the current README report workflow. Michigan retention remains unavailable. MCP has no general live-source ingestion tool; the Docker CLI provides harvest and report commands. Scenario calculators consume supplied inputs and are not validated outcome forecasts.
-
-Foundation tasks still open: Census LODES/PSEO plus geographic hierarchy, signed/Merkle checkpoints, the official O*NET-SOC 2019 → SOC 2018 crosswalk, and validation against exact official Michigan release workbooks. The roadmap also includes deeper loaders and reporting features. Do not describe the whole platform as production-complete or capable of every planned analysis.
-
-## Tool behavior
-19 tools are marked read-only; `claims_challenge` is marked as a non-destructive, non-idempotent write and still requires server-side MIJOBS_MCP_WRITE_ENABLED opt-in. Server initialization instructions explicitly require evidence searches and tracing and prohibit invented figures when results are empty.
-
-References: [official desktop MCP setup](https://learn.chatgpt.com/docs/extend/mcp), [ChatGPT MCP tool behavior](https://developers.openai.com/api/docs/guides/developer-mode).
-
-## Connection security
-Host/Origin validation is enabled. Configure MIJOBS_MCP_ALLOWED_HOSTS and MIJOBS_MCP_ALLOWED_ORIGINS in .env; keep browser origins empty for native desktop use. Default hostnames support loopback and the workforce-mcp Docker alias. See [security validation](security-validation.md) for verified results and remaining OS vulnerabilities.
+Host/Origin validation remains enabled. Keep loopback publishing and only the intended native/Docker client hosts. See [README](../README.md), [exchange operations](employer-exchange.md), and [deployment guide](../deploy/README.md). Current evidence coverage is in the scripted snapshot rather than a fixed tool-count claim of completeness.

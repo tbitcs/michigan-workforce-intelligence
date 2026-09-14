@@ -37,6 +37,15 @@ def main() -> None:
         data = r.json()
         rows = [dict(zip(data[0], row, strict=True)) for row in data[1:]]
         selected = [row for row in rows if row["NAME"] in {v["GeoName"] for v in bea["rows"]}]
+        national = client.get(
+            url,
+            params={"get": ",".join(fields), "for": "us:1", "key": os.environ["CENSUS_API_KEY"]},
+        )
+        if national.status_code != 200:
+            raise RuntimeError(f"ACS national HTTP {national.status_code}")
+        us_data = national.json()
+        selected.append({**dict(zip(us_data[0], us_data[1], strict=True)), "state": "US"})
+        combined_content = json.dumps({"states": data, "national": us_data}).encode()
         now = datetime.now(UTC)
         settings = Settings.from_env()
         with session_factory(make_engine(settings.database_url))() as session:
@@ -57,7 +66,7 @@ def main() -> None:
                             numeric_value=Decimal(value),
                             unit="US_price_level_100",
                             geography_type="state" if geo != "00" else "national",
-                            geography_code=geo,
+                            geography_code="US" if geo == "00" else geo,
                             period_basis="annual",
                             metadata={
                                 "year": year,
@@ -94,7 +103,7 @@ def main() -> None:
                             value_text=str(value),
                             numeric_value=value if value >= 0 else None,
                             unit=unit,
-                            geography_type="state",
+                            geography_type="national" if row["state"] == "US" else "state",
                             geography_code=row["state"],
                             period_basis="acs_1year",
                             metadata={
@@ -110,9 +119,9 @@ def main() -> None:
                     source_id="us_census_acs",
                     locator=url + "#variables=" + ",".join(fields) + "&for=state:*",
                     retrieved_at=now,
-                    content=r.content,
+                    content=combined_content,
                     media_type="application/json",
-                    parser_version="acs-state-comparison/1",
+                    parser_version="acs-state-comparison/2",
                 ),
                 normalizer=lambda _: observations,
             )

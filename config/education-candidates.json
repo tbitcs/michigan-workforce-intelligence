@@ -1,0 +1,84 @@
+{
+  "reviewed_on": "2026-09-13",
+  "status": "candidate_only",
+  "evidence_class": "official-source desk research; not ingested outcome evidence",
+  "limitations": [
+    "No institution is represented in or committed to this pilot.",
+    "Current seats, costs, admissions, employer offers, and funding are unconfirmed.",
+    "Proposed fit is an analyst assessment, not an institutional endorsement."
+  ],
+  "institutions": [
+    {
+      "name": "Macomb Community College",
+      "geography": "Macomb",
+      "program": "Skilled-trade and health care apprenticeships",
+      "proposed_fit": "Candidate for employer-sponsored paid apprenticeships and incumbent trade training.",
+      "source_url": "https://www.macomb.edu/programs-courses/apprenticeships/index.html",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "Oakland Community College",
+      "geography": "Oakland",
+      "program": "Building the Future of America's Navy",
+      "proposed_fit": "Candidate for defense manufacturing training linked to naval supply-chain needs.",
+      "source_url": "https://www.oaklandcc.edu/training-programs/building-future-americas-navy",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "Henry Ford College",
+      "geography": "Wayne",
+      "program": "Mechatronics Technology AAS",
+      "proposed_fit": "Candidate for automation and maintenance pathways; evaluate existing credits and individual prerequisites.",
+      "source_url": "https://catalog.hfcc.edu/programs/MECHATRONICSTECH.AAS/program-information-aoYks",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "Wayne County Community College District",
+      "geography": "Wayne",
+      "program": "Advanced manufacturing and skilled trades",
+      "proposed_fit": "Candidate for local technical pathways across trades and aviation-related programs.",
+      "source_url": "https://www.wcccd.edu/academic-and-career-programs/advanced-manufacturing-and-skilled-trades",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "Wayne State University",
+      "geography": "Wayne",
+      "program": "Engineering technology",
+      "proposed_fit": "Candidate for technical advancement and transfer pathways; engineering and engineering technology requirements differ.",
+      "source_url": "https://bulletins.wayne.edu/undergraduate/college-engineering/engineering-technology-division/",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "University of Michigan-Dearborn",
+      "geography": "Wayne",
+      "program": "Manufacturing engineering BSE and engineering co-op",
+      "proposed_fit": "Candidate for manufacturing engineering and paid student co-op pathways; a full degree is not a short layoff bridge.",
+      "source_url": "https://umdearborn.edu/cecs/departments/industrial-and-manufacturing-systems-engineering/undergraduate-programs",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "Western Michigan University",
+      "geography": "Kalamazoo / statewide",
+      "program": "Aerospace engineering BS",
+      "proposed_fit": "Candidate for a longer-term aerospace engineering talent pipeline; assess relocation and employer demand.",
+      "source_url": "https://wmich.edu/mechanical-aerospace/academics/aerospace",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    },
+    {
+      "name": "University of Michigan-Ann Arbor",
+      "geography": "Washtenaw / statewide",
+      "program": "Aerospace engineering undergraduate program",
+      "proposed_fit": "Candidate for aerospace engineering student and graduate pathways; do not equate program enrollment with available hires.",
+      "source_url": "https://aero.engin.umich.edu/undergraduate/",
+      "relationship_status": "candidate",
+      "participation_confirmed": false
+    }
+  ]
+}

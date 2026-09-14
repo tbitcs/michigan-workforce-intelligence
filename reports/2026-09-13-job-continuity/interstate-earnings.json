@@ -1,9 +1,9 @@
 {
   "source_url": "https://api.census.gov/data/2024/acs/acs1",
-  "retrieved_at": "2026-09-13T22:35:35.269413+00:00",
-  "artifact_id": "ddcab379-31a3-4450-bf3c-012bf805228e",
-  "sha256": "117c3584e2f9158eee7d431dca5994a7d2111449405b0953717c9418a1314539",
-  "bea_artifact_id": "056ebfa1-9719-4125-b473-576273d711e1",
+  "retrieved_at": "2026-09-13T23:43:55.750519+00:00",
+  "artifact_id": "bcd0cf44-defe-473b-b57f-702d99b86457",
+  "sha256": "7a0f16057ae47bb2cf41b4a2957c33442e2f1e03a35411e3fe8dc6d68d071309",
+  "bea_artifact_id": "6d52dc66-b2ca-4fb6-806c-7a9913f71393",
   "rows": [
     {
       "NAME": "California",
@@ -12,6 +12,14 @@
       "B25064_001E": "2104",
       "B25064_001M": "9",
       "state": "06"
+    },
+    {
+      "NAME": "Florida",
+      "B20002_001E": "42321",
+      "B20002_001M": "154",
+      "B25064_001E": "1812",
+      "B25064_001M": "9",
+      "state": "12"
     },
     {
       "NAME": "Illinois",
@@ -68,6 +76,15 @@
       "B25064_001E": "1142",
       "B25064_001M": "10",
       "state": "55"
+    },
+    {
+      "NAME": "United States",
+      "B20002_001E": "46949",
+      "B20002_001M": "77",
+      "B25064_001E": "1487",
+      "B25064_001M": "3",
+      "us": "1",
+      "state": "US"
     }
   ],
   "definition": "ACS 2024 1-year median earnings among people age 16+ with earnings; not occupation-specific or full-time-only; MOEs retained."
