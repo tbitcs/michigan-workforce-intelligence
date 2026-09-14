@@ -7,6 +7,8 @@ name = "michigan-workforce-intelligence"
 version = "0.1.0"
 description = "Epistemic, hash-chained workforce intelligence platform for Michigan"
 requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE", "LICENSES/*.txt", "LICENSING.md", "THIRD_PARTY_NOTICES.md"]
 dependencies = [
   "httpx>=0.27,<1",
   "openpyxl>=3.1,<4",

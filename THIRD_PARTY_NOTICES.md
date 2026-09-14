@@ -22,3 +22,7 @@ The supplied O*NET graphic is unmodified and displayed proportionally as a sourc
 The repository's original-code license does **not** relicense external datasets, graphics, trademarks, publications or dependency code. A public government host can contain third-party licensed content. Michigan job-ad analyses may use commercial inputs; this project does not redistribute underlying Lightcast/HWOL data. University of Michigan consumer sentiment, private confidence indexes and market-price feeds require their own access/reuse review; they are not silently copied from an aggregator such as FRED.
 
 Prominent source notices appear in the README and PDF opening credits, and each table/chart identifies its source and transformations. Follow [API/source policy](docs/source-policy.md) before adding an automated source. The project makes no claim that a provider endorses the analysis or pilot.
+
+Original software: MIT. Original report/documentation/chart content: CC BY 4.0, only to the extent the project holds those rights. See LICENSING.md for exclusions and attribution. Spec Kit scaffolding and derived instructions retain Copyright GitHub, Inc., MIT; its full notice is preserved in LICENSES/Spec-Kit-MIT.txt.
+
+PDFs embed DejaVu fonts: Copyright (c) 2003 Bitstream, Inc.; DejaVu changes are public domain. The Bitstream Vera font notice is reproduced in each PDF and LICENSES/DejaVu-fonts.txt. This font permission does not change the report license.

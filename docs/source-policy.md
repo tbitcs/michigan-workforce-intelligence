@@ -17,3 +17,7 @@ HTTP 429/503 records a cooldown honoring `Retry-After` seconds/date with a minim
 Requests are batched where supported. Immutable source files support offline repeat analysis; PDF release builds never fetch live APIs. Explicit recollection may append source/observation revisions and consumes quota; it is not the default report command. Downloads preserve original hashes and retrieval times. Analysts verify units, survey identity and geographic catalog metadata before interpretation.
 
 See [third-party notices](../THIRD_PARTY_NOTICES.md). Do not assume every government-hosted publication is wholly public domain. Retain dataset-specific attribution, suppression rules and source licenses; do not upload private employer/worker records in report assets. Additional source activation requires a reviewed endpoint, credentials if needed, quota/retry semantics, permission to reuse the selected content, normalization/lineage tests and explicit missing-data handling.
+
+## Project licensing boundary
+
+Original software is MIT; original reports, documentation and charts are CC BY 4.0. Neither grant replaces provider API or redistribution terms. Preserve per-source credits and restrictions in exported evidence, and do not label all source records CC BY merely because the report is CC BY. See [license scope](../LICENSING.md).

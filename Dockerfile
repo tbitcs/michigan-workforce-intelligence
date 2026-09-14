@@ -13,6 +13,8 @@ COPY src ./src
 COPY config ./config
 COPY deploy ./deploy
 COPY README.md ./
+COPY LICENSE LICENSING.md THIRD_PARTY_NOTICES.md ./
+COPY LICENSES ./LICENSES
 RUN uv sync --frozen --no-dev --extra mcp && useradd --uid 10001 --create-home mijobs \
     && mkdir -p /data/artifacts /confidential && chown -R mijobs:mijobs /data /confidential
 USER mijobs

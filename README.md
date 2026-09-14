@@ -96,7 +96,7 @@ The repository and release downloads are public. Only `tbitcs` has write access;
 
 The reports propose a job-continuity program; they do not prove zero unemployment, available funding, employer commitments or jobs saved. Job Corps, APEX, Velocity and every educational institution are candidate components. The local exchange is an aggregate pilot, not a hosted production case-management system. Homelessness research, missing sentiment series and statistical outlook limitations are explicitly separated from ingested evidence. Review [roadmap](docs/roadmap.md), [methodology](docs/source-methodology.md) and [security validation](docs/security-validation.md).
 
-Original project code is covered by [LICENSE](LICENSE). Source data retain their own terms and attribution; the code license does not relicense third-party data. Prominent provider credits accompany the PDFs and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). [API and redistribution policy](docs/source-policy.md) records endpoint rules, conservative rate limits and collection restrictions.
+Original software uses [MIT](LICENSE); original reports, documentation and charts use [CC BY 4.0](LICENSES/CC-BY-4.0.txt). Both allow commercial reuse and adaptation. See [license scope and attribution examples](LICENSING.md). Source data retain their own terms and attribution; the code license does not relicense third-party data. Prominent provider credits accompany the PDFs and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). [API and redistribution policy](docs/source-policy.md) records endpoint rules, conservative rate limits and collection restrictions.
 
 [![O*NET OnLine](docs/assets/onet-online.png)](https://www.onetonline.org/)
 

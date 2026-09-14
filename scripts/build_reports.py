@@ -203,7 +203,14 @@ def pdf(path: Path, title: str, texts: list[str], charts: list[Path], stamp: str
     if logo.exists():
         story.append(Image(str(logo), width=130, height=60, hAlign="LEFT"))
     credit = 'O*NET OnLine / National Center for O*NET Development / USDOL/ETA. <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. O*NET® is a USDOL/ETA trademark. Selected wage information is adapted with project analysis; USDOL/ETA has not approved or endorsed these modifications. Original wage source: BLS. Other principal sources: BLS, Census, BEA and Michigan agencies. Full notices follow.'
-    story += [Paragraph(credit, s["Small"]), PageBreak()]
+    story += [
+        Paragraph(credit, s["Small"]),
+        Paragraph(
+            'Original report content: tbitcs / Michigan Workforce Intelligence, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Attribute the project and release; identify adaptations. Source data, graphics and trademarks retain provider terms. Software: MIT. Full licensing and notices are included in the download package.',
+            s["Small"],
+        ),
+        PageBreak(),
+    ]
     for chart in charts:
         story += [Image(str(chart), width=CONTENT, height=CONTENT * 0.55), PageBreak()]
     for idx, text in enumerate(texts):
@@ -601,6 +608,7 @@ def main():
         raise ValueError("Unverified snapshot")
     data, charts = generate_data(out, snapshot)
     credits = ROOT.joinpath("THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
+    credits += "\n\n# Embedded font license\n\n" + ROOT.joinpath("LICENSES/DejaVu-fonts.txt").read_text(encoding="utf-8").replace("\n .\n", "\n\n")
 
     def read(name):
         return SOURCE.joinpath(name + ".md").read_text(encoding="utf-8")
@@ -679,11 +687,21 @@ def main():
             sheet.paste(im, (x, y + 22))
             draw.text((x + 4, y + 3), path.name[:53], fill="black")
         sheet.save(qa / f"contact-{batch // 12 + 1}.png")
+    for notice in ["LICENSE", "LICENSING.md", "THIRD_PARTY_NOTICES.md"]:
+        out.joinpath(notice).write_bytes(ROOT.joinpath(notice).read_bytes())
+    for notice in sorted(ROOT.joinpath("LICENSES").glob("*.txt")):
+        out.joinpath(notice.name).write_bytes(notice.read_bytes())
     files = {
         p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir() if p.is_file()
     }
     manifest = {
         "version": stamp,
+        "licenses": {
+            "software": "MIT",
+            "original_report_content": "CC-BY-4.0",
+            "source_data": "Provider-specific; see THIRD_PARTY_NOTICES.md",
+            "scope": "LICENSING.md",
+        },
         "source_commit": os.getenv("REPORT_SOURCE_COMMIT", "working-tree-local"),
         "evidence_review_date": "2026-09-13",
         "snapshot_analyzed_at": snapshot["analyzed_at"],
