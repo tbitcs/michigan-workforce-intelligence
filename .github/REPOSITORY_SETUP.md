@@ -1,10 +1,10 @@
 # Repository access and public downloads
 
-The canonical repository is `tbitcs/michigan-workforce-intelligence`. The maintainer explicitly authorized public visibility on September 13, 2026, superseding the bootstrap's private-only setting.
+The canonical repository is `AXIOVEX/michigan-workforce-intelligence`. The maintainer explicitly authorized public visibility on September 13, 2026, superseding the bootstrap's private-only setting.
 
-Anyone may read, clone, fork, or download the public repository and its [report releases](https://github.com/tbitcs/michigan-workforce-intelligence/releases/latest). Only `tbitcs` has repository write access. Forks and proposed pull requests do not grant write access to this repository.
+Anyone may read, clone, fork, or download the public repository and its [report releases](https://github.com/AXIOVEX/michigan-workforce-intelligence/releases/latest). The all-branch ruleset permits bypass only to the `repository-maintainers` team, whose sole member is `tbitcs`; therefore only `tbitcs` can create, update, or delete branches. Forks and proposed pull requests do not grant branch write access.
 
-The active branch ruleset in `maintainer-branches.json` restricts creation, updates, deletion, and force pushes on every branch to its bypass actor, the repository administrator. This is a personal repository: `tbitcs` is its sole administrator. No collaborators, pending invitations, or deploy keys were present at the publication review. Adding credentials, apps, or collaborators later requires a fresh access review. CODEOWNERS documents review ownership; the GitHub ruleset and access permissions enforce it.
+The active ruleset in `maintainer-branches.json` restricts creation, updates, deletion, and force pushes on every branch to the dedicated maintainer team. AXIOVEX organization owners retain repository-administration visibility, but are not in the branch-bypass team. An organization owner could deliberately change repository settings, so the audit checks team membership, invitations, deploy keys, rulesets, and workflow permissions. CODEOWNERS documents review ownership; GitHub settings enforce it.
 
 Actions default to read-only contents and cannot approve pull requests. The manually dispatched report publication job has scoped contents-write permission to create release tags and assets; it has no branch-rule bypass and cannot push branch commits. Tags remain available for timestamped report releases.
 

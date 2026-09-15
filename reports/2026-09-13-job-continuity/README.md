@@ -4,7 +4,7 @@ Evidence review: **September 13, 2026**. This is a program design and analytical
 
 | Deliverable | File |
 |---|---|
-| Jobs, national/state comparisons, charts and reference outlooks | Generated `jobs-economic-report.pdf` in the [public releases](https://github.com/tbitcs/michigan-workforce-intelligence/releases/latest) |
+| Jobs, national/state comparisons, charts and reference outlooks | Generated `jobs-economic-report.pdf` in the [public releases](https://github.com/AXIOVEX/michigan-workforce-intelligence/releases/latest) |
 | Trends, speculative drivers, underutilization and homelessness limitations | [Trends and hardship](trends-and-hardship.md) |
 | Additional candidate institutions and official program sources | [Education candidate matrix](education-candidates.md) |
 | Executive brief and prioritized decisions | [Executive brief](executive-brief.md) |

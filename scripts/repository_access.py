@@ -7,7 +7,9 @@ import json
 import subprocess
 from pathlib import Path
 
-REPO = "tbitcs/michigan-workforce-intelligence"
+REPO = "AXIOVEX/michigan-workforce-intelligence"
+ORG = "AXIOVEX"
+MAINTAINER_TEAM = "repository-maintainers"
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -38,9 +40,18 @@ def main() -> None:
     invitations = api(base + "/invitations?per_page=100")
     keys = api(base + "/keys?per_page=100")
     writers = [r["login"] for r in collaborators if r["permissions"].get("push")]
+    maintainer_members = [
+        row["login"]
+        for row in api(f"orgs/{ORG}/teams/{MAINTAINER_TEAM}/members?per_page=100")
+    ]
     if args.apply:
-        if api("user")["login"] != "tbitcs" or writers != ["tbitcs"] or invitations or keys:
-            raise SystemExit("Owner-only access review required before applying settings")
+        if (
+            api("user")["login"] != "tbitcs"
+            or maintainer_members != ["tbitcs"]
+            or invitations
+            or keys
+        ):
+            raise SystemExit("Maintainer-team access review required before applying settings")
         api(
             base,
             "PATCH",
@@ -72,7 +83,9 @@ def main() -> None:
             {
                 "repository": REPO,
                 "private": repo["private"],
-                "writers": writers,
+                "users_with_repository_push_permission": writers,
+                "branch_bypass_team": MAINTAINER_TEAM,
+                "branch_bypass_team_members": maintainer_members,
                 "pending_invitations": len(invitations),
                 "deploy_keys": len(keys),
                 "rulesets": api(base + "/rulesets?per_page=100"),

@@ -2,7 +2,7 @@
 
 Evidence-backed Michigan jobs analysis and a local job-continuity pilot. The public evidence service combines official aggregate data, versioned observations, source artifacts, an audited ledger, deterministic analysis and MCP access. Reports cover Macomb, Oakland and Wayne counties and Michigan, with U.S., Ohio, California, Texas and Florida benchmarks and additional interstate earnings/price comparisons.
 
-[Download report releases](https://github.com/tbitcs/michigan-workforce-intelligence/releases/latest) · [Report sources and findings](reports/2026-09-13-job-continuity/README.md) · [Data credits](THIRD_PARTY_NOTICES.md)
+[Download report releases](https://github.com/AXIOVEX/michigan-workforce-intelligence/releases/latest) · [Report sources and findings](reports/2026-09-13-job-continuity/README.md) · [Data credits](THIRD_PARTY_NOTICES.md)
 
 ## Ask naturally
 
@@ -92,7 +92,7 @@ Analysis reads the evidence volume and reuses university outcomes. Collection is
 
 PDFs, charts, aggregate snapshots, manifests, hashes and ZIPs appear in `output/pdf/YYYY.MM.DD.HHMMSSZ`. Page renders in `tmp/pdfs/` support visual review. Build timestamps do not refresh evidence. The manual GitHub release workflow validates the launcher on Linux, Windows and macOS, builds in Docker and publishes allowlisted assets from committed sources. See [report operations](docs/report-operations.md).
 
-The repository and release downloads are public. Only `tbitcs` has write access; an active all-branch ruleset restricts branch changes to the sole repository administrator. The scoped release workflow can publish tags/assets but has no branch-rule bypass. [Access policy](.github/REPOSITORY_SETUP.md) documents the settings. External users may fork and propose changes without receiving write access.
+The repository and release downloads are public. Only `tbitcs` can push branches; an active all-branch ruleset limits bypass to the `repository-maintainers` team, whose sole member is `tbitcs`. The scoped release workflow can publish tags/assets but has no branch-rule bypass. [Access policy](.github/REPOSITORY_SETUP.md) documents the settings. External users may fork and propose changes without receiving write access.
 
 ## Boundaries and credits
 

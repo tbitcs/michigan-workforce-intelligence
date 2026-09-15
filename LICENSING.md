@@ -12,7 +12,7 @@ Original software uses MIT; original reports, documentation prose, charts, layou
 | Dependencies and runtime components | Their respective licenses and notices. |
 | Confidential employer records, credentials and private database volumes | Excluded from these grants and public release packages. |
 
-Suggested report attribution: “Michigan Workforce Intelligence, maintained by tbitcs, report title and release version, https://github.com/tbitcs/michigan-workforce-intelligence, CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).” Describe adaptations and retain applicable provider credits. This example adds no extra license conditions.
+Suggested report attribution: “Michigan Workforce Intelligence, maintained by tbitcs, report title and release version, https://github.com/AXIOVEX/michigan-workforce-intelligence, CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).” Describe adaptations and retain applicable provider credits. This example adds no extra license conditions.
 
 O*NET OnLine content is separately CC BY 4.0. Preserve its attribution, change and non-endorsement notices; authorized graphics and trademarks retain their conditions. Government sites may contain third-party material, and state publications must not be presumed public domain. API rules and redistribution conditions remain applicable; see [source policy](docs/source-policy.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
 
