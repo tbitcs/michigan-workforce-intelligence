@@ -20,6 +20,12 @@ RUN uv sync --frozen --no-dev --extra mcp && useradd --uid 10001 --create-home m
 USER mijobs
 CMD ["python", "-c", "from mijobs.mcp_server import serve_http; serve_http()"]
 
+FROM runtime AS mcp-stdio
+LABEL com.docker.mcp.packaging.version="v1.0" \
+      io.modelcontextprotocol.server.name="michigan-workforce-intelligence"
+ENTRYPOINT ["mijobs-mcp"]
+CMD []
+
 FROM runtime AS ci
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends bash curl ca-certificates make git \

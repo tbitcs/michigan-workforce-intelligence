@@ -30,3 +30,5 @@ artifacts/reports/
 .cache/
 output/
 tmp/
+
+.tmp-test/

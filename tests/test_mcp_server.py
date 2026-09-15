@@ -94,3 +94,14 @@ def test_main_runs_server(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setattr(mcp_server, "build_server", lambda: server)
     mcp_server.main()
     assert server.ran is True
+
+
+def test_read_only_mode_skips_database_initialization(monkeypatch: pytest.MonkeyPatch) -> None:
+    _install_fake_mcp(monkeypatch)
+    initialized: list[object] = []
+    monkeypatch.setenv("MIJOBS_DATABASE_URL", "sqlite:///unused-read-only.db")
+    monkeypatch.setenv("MIJOBS_DATABASE_READ_ONLY", "true")
+    monkeypatch.setattr(mcp_server, "initialize_database", initialized.append)
+    server = mcp_server.build_server()
+    assert isinstance(server, FakeMCPServer)
+    assert initialized == []

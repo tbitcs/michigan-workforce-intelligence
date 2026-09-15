@@ -44,6 +44,8 @@ docker compose run --rm --build ci
 
 The public-evidence MCP endpoint is `http://127.0.0.1:8000/mcp`. A separate agent container on the `michigan-workforce` network uses `http://workforce-mcp:8000/mcp`; it needs neither database mounts nor Docker-socket access. See [MCP connection details](docs/chatgpt.md) and [Compose/Kubernetes wiring](deploy/README.md). Compose is the supported local deployment; Kubernetes files are a later deployment option.
 
+For the combined Docker MCP Gateway, use the companion `manufacturing-inference-advisor` repository beside this one and run its `python scripts/docker_mcp.py setup`, `test`, and `verify` commands. That profile exposes this server's evidence volume read-only alongside the manufacturing inference design server, allowing agents to move from workforce findings to private inference-infrastructure plans without giving either container the Docker socket or host filesystem.
+
 ## Configuration and persistence
 
 `.env.example` documents the variables. Keep API credentials, `EXCHANGE_OPERATOR_TOKEN` and `EXCHANGE_ENCRYPTION_KEY` in the ignored `.env`. Existing API keys are preserved. `COMPOSE_PROJECT_NAME` selects the project and volumes; changing it does not migrate data. Defaults use `/data/mijobs.db` and `/data/artifacts` in the evidence volume. The exchange uses a separate `confidential` volume and dedicated bridge network. MCP writes remain disabled unless explicitly enabled. Secrets are excluded from image builds and releases.

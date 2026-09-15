@@ -36,7 +36,8 @@ def build_server() -> Any:
     )
     settings = Settings.from_env()
     engine = make_engine(settings.database_url)
-    initialize_database(engine)
+    if os.getenv("MIJOBS_DATABASE_READ_ONLY", "false").lower() not in {"1", "true", "yes", "on"}:
+        initialize_database(engine)
     factory = session_factory(engine)
     catalog = load_source_catalog()
     mcp = MCPServer("Michigan Workforce Intelligence", instructions=SERVER_INSTRUCTIONS)
